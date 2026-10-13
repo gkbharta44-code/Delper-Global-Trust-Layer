@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delper Global Trust Infrastructure: Executive Summary</title>
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #f5f7fa; --surface: #ffffff; --text: #1f2933; --muted: #52606d;
+  --accent: #1f4e79; --accent-light: #e8f0f8; --border: #d9e2ec;
+  --ok: #1d7a4a; --ok-bg: #e6f4ec;
+  --err: #b42318; --err-bg: #fdecea;
+  --warn-bg: #fff8e1; --warn-border: #d9a421;
+  --hi: #0b5d3b; --hi-bg: #e3f5ec;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121820; --surface: #1a2330; --text: #e4e9f0; --muted: #9aa8b8;
+    --accent: #7fb2e5; --accent-light: #223247; --border: #2c3a4d;
+    --ok: #6fd39a; --ok-bg: #173325; --err: #ff8a80; --err-bg: #3a1c1a;
+    --warn-bg: #3a3118; --warn-border: #d9a421; --hi: #6fd39a; --hi-bg: #173325;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121820; --surface: #1a2330; --text: #e4e9f0; --muted: #9aa8b8;
+  --accent: #7fb2e5; --accent-light: #223247; --border: #2c3a4d;
+  --ok: #6fd39a; --ok-bg: #173325; --err: #ff8a80; --err-bg: #3a1c1a;
+  --warn-bg: #3a3118; --warn-border: #d9a421; --hi: #6fd39a; --hi-bg: #173325;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: Georgia, "Times New Roman", serif; line-height: 1.7; font-size: 16px;
+}
+.container {
+  max-width: 880px; margin: 24px auto; background: var(--surface);
+  padding: 44px 52px; border: 1px solid var(--border); border-radius: 6px;
+}
+header { border-bottom: 3px solid var(--accent); padding-bottom: 18px; margin-bottom: 28px; }
+h1 { font-size: 1.95rem; color: var(--accent); margin: 0 0 8px; line-height: 1.25; }
+.subtitle { font-family: Arial, Helvetica, sans-serif; color: var(--muted); font-size: 0.95rem; }
+h2 {
+  font-family: Arial, Helvetica, sans-serif; font-size: 1.3rem; color: var(--accent);
+  margin: 38px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px;
+}
+h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1.04rem; margin: 22px 0 8px; }
+p, li { text-align: justify; hyphens: auto; }
+ul { padding-left: 22px; }
+li { margin-bottom: 8px; }
+.disclaimer {
+  background: var(--warn-bg); border: 1px solid var(--warn-border); border-left: 6px solid var(--warn-border);
+  border-radius: 4px; padding: 16px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 0.9rem;
+  text-align: justify; margin-bottom: 26px;
+}
+.disclaimer strong { font-size: 0.98rem; }
+.highlight {
+  background: var(--hi-bg); border: 2px solid var(--hi); border-radius: 6px;
+  padding: 20px 22px; margin: 18px 0;
+}
+.highlight .label {
+  font-family: Arial, Helvetica, sans-serif; font-size: 0.78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--hi);
+}
+.highlight .big {
+  font-family: Arial, Helvetica, sans-serif; font-size: 2.6rem; font-weight: 700;
+  color: var(--hi); line-height: 1.1; margin: 4px 0 6px; font-variant-numeric: tabular-nums;
+}
+.highlight p { margin: 6px 0 0; }
+.formula {
+  background: var(--accent-light); border-left: 4px solid var(--accent); padding: 12px 16px;
+  font-family: "Courier New", monospace; font-size: 0.92rem; margin: 14px 0; overflow-x: auto;
+}
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+@media (max-width: 640px) { .kpis { grid-template-columns: 1fr; } }
+.kpi {
+  border: 1px solid var(--border); border-top: 4px solid var(--accent); border-radius: 4px;
+  padding: 14px; background: var(--bg); font-family: Arial, Helvetica, sans-serif;
+}
+.kpi .v { font-size: 1.4rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.kpi .k { font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 0.85rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--accent); background: var(--bg); }
+td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+tr.hl td { background: var(--hi-bg); font-weight: 700; }
+.card {
+  border: 1px solid var(--border); border-radius: 4px; padding: 14px 18px;
+  background: var(--bg); margin: 12px 0;
+}
+.card h3 { margin-top: 0; }
+.rationale { border: 1px dashed var(--border); border-radius: 4px; padding: 14px 18px; font-size: 0.94rem; }
+.rationale dt { font-family: Arial, Helvetica, sans-serif; font-weight: 700; margin-top: 10px; color: var(--accent); }
+.rationale dt:first-child { margin-top: 0; }
+.rationale dd { margin: 2px 0 0; text-align: justify; }
+.footer { font-family: Arial, Helvetica, sans-serif; font-size: 0.82rem; color: var(--muted); margin-top: 30px; }
+@media (max-width: 640px) {
+  .container { padding: 26px 20px; margin: 10px auto; }
+  h1 { font-size: 1.55rem; }
+  .highlight .big { font-size: 2.1rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>Delper Global Trust Infrastructure: Executive Summary</h1>
+  <div class="subtitle">Revenue streams, capital turnover, growth path, risks, and verdict, based on the source document dated 13 October 2026</div>
+</header>
+
+<h2>1. Bottom Line</h2>
+<p>The document presents Delper as a software-led trade platform that reaches 70% of global GDP in eight years by reinvesting all profit. The 70% result depends on how the share is measured. It is reached only when transaction volume (GMV) is compared with GDP in Year 8. On the revenue basis the document uses for Years 1 to 7, the same inputs reach about 7.9% of GDP in Year 8. Reaching even the GMV target requires the reserve to turn over about 26.4 times a year, every year, with no costs, defaults, or delays.</p>
+
+<div class="highlight">
+  <div class="label">Initial CapEx and OpEx at launch</div>
+  <div class="big">$1.20M total</div>
+  <table>
+    <thead><tr><th>Item</th><th class="num">Amount</th><th>Covers</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CapEx</strong></td><td class="num"><strong>$864,000</strong></td><td>SAP BTP middleware setup, process mapping in SAP Signavio, transfer-pricing metrics</td></tr>
+      <tr><td><strong>OpEx</strong></td><td class="num"><strong>$336,000</strong></td><td>PwC managed-services (BPO) agreement and the initial Standard Chartered liquidity container</td></tr>
+    </tbody>
+  </table>
+  <p>Funded by $480,000 of parent equity and a $720,000 Singapore venture debt facility. CapEx is 72% of the launch budget.</p>
+</div>
+
+<div class="kpis">
+  <div class="kpi"><div class="v">26.4×</div><div class="k">Required annual turnover of reserves to reach 70% of GDP by Year 8</div></div>
+  <div class="kpi"><div class="v">7.9%</div><div class="k">Year 8 share of GDP on the revenue basis (the 70% figure uses GMV)</div></div>
+  <div class="kpi"><div class="v">$24.5T</div><div class="k">Maximum cumulative revenue by Year 8 with full retention (document states $29.99T)</div></div>
+</div>
+
+<h2>2. Required Turnover: Highlighted Result</h2>
+<div class="highlight">
+  <div class="label">Required turnover to achieve 70% of global GDP</div>
+  <div class="big">About 26.4 turns per year</div>
+  <p>Every year, the reserve must be deployed about 26.4 times, or one full cycle every 13.8 days. This is the key dependency: the 70% target rests entirely on the platform sustaining this turnover every year. The document's 14-day cycle gives 365 ÷ 14, or about 26.1 turns, which is slightly below the requirement. The result assumes 100% of revenue is reinvested, a 24.2% take rate, and no costs or delays.</p>
+</div>
+
+<h3>Method</h3>
+<div class="formula">Turns per year (k) = Annual GMV ÷ Cash reserve deployed</div>
+<div class="formula">Reserve(t+1) = Reserve(t) × (1 + k × 24.2%)</div>
+<div class="formula">Year 8 target: GMV = 70% × $159.04T = $111.33T</div>
+<p>The reserve compounds by the factor (1 + 24.2% × k) each year. Starting from the document's $3.52M reserve, a turnover of 26.4 produces Year 8 GMV of about $111T. The reserve needed at the start of Year 8 is about $4.2T, which equals Year 8 GMV divided by 26.4.</p>
+
+<h3>Cash reserve per transaction</h3>
+<p>Dividing Year 8 GDP by the number of transactions gives the reserve needed to clear each one. The table uses the 70% target of $111.33T and assumes each transaction is funded for one 14-day cycle and then recycled.</p>
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Average transaction</th><th class="num">Transactions per year</th><th class="num">Transactions per day</th><th class="num">Reserve tied up per transaction (value ÷ 26.4)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>$300 (platform threshold)</td><td class="num">371 billion</td><td class="num">about 1.0 billion</td><td class="num">about $11</td></tr>
+    <tr><td>$1,000</td><td class="num">111 billion</td><td class="num">about 305 million</td><td class="num">about $38</td></tr>
+    <tr><td>$10,000</td><td class="num">11.1 billion</td><td class="num">about 30 million</td><td class="num">about $379</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Implications</h3>
+<ul>
+  <li><strong>Year 1 scale:</strong> A $3.52M reserve at 26.4 turns supports about $93M of Year 1 GMV. The document's $20M pilot implies about 5.7 turns on the same reserve, so the pilot does not use the full reserve.</li>
+  <li><strong>No margin for error:</strong> A single missed cycle, a default, or any operating cost pushes the target beyond Year 9 under the stated inputs.</li>
+  <li><strong>Transaction volume:</strong> The $300 case alone implies about one billion transactions a day by Year 8. The document does not model the capacity needed to process that volume.</li>
+</ul>
+
+<h2>3. Revenue Streams</h2>
+<p>The document describes three revenue streams. All of them are recorded as ledger entries inside the partner bank network.</p>
+<div class="card">
+  <h3>Stream 1: Software take rates</h3>
+  <p>The seller's ERP sends an itemized expense breakout to the Proxtera API gateway through SAP BTP Event Mesh. Delper removes a 5.1% share of the traditional friction cost, leaving a take rate of 24.2% on consumer and high-margin goods and 15.184% on premium commodities. Transactions must be at least USD 300.</p>
+</div>
+<div class="card">
+  <h3>Stream 2: Liquidity spread</h3>
+  <p>Delper lends from its own reserves on 14 to 90 day facilities at a stated 6.5% p.a. Partner banks take a 0.5% p.a. frontending fee, leaving Delper a 6.0% p.a. net spread secured by bonded cargo.</p>
+</div>
+<div class="card">
+  <h3>Stream 3: Sovereign BOOT concessions</h3>
+  <p>Delper funds customs ports, logistics hubs, and data centers under 10-year build-own-operate-transfer contracts and applies the 15.184% rate to port duties and clearing fees. The document describes this as starting from Year 5.</p>
+</div>
+
+<h2>4. Year-Wise Matrix and Share of Global GDP</h2>
+<p>The matrix below shows the document's figures with two measurement bases. Revenue is the sum of the three streams. The GMV figures for Years 1 and 2 are shown as $20 million and $350 million, because the stream figures for those years only reconcile at that scale.</p>
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Year</th><th class="num">GMV</th><th class="num">Revenue</th><th class="num">Global GDP</th><th class="num">Share, revenue basis</th><th class="num">Share, GMV basis</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td class="num">$20.00M</td><td class="num">$9.44M</td><td class="num">$126.30T</td><td class="num">0.0000075%</td><td class="num">0.0000158%</td></tr>
+    <tr><td>2</td><td class="num">$350.00M</td><td class="num">$156.70M</td><td class="num">$130.60T</td><td class="num">0.00012%</td><td class="num">0.00027%</td></tr>
+    <tr><td>3</td><td class="num">$25.00B</td><td class="num">$11.17B</td><td class="num">$135.04T</td><td class="num">0.0083%</td><td class="num">0.0185%</td></tr>
+    <tr><td>4</td><td class="num">$250.00B</td><td class="num">$111.70B</td><td class="num">$139.63T</td><td class="num">0.080%</td><td class="num">0.179%</td></tr>
+    <tr><td>5</td><td class="num">$6.405T</td><td class="num">$1.123T</td><td class="num">$144.38T</td><td class="num">0.778%</td><td class="num">4.44%</td></tr>
+    <tr><td>6</td><td class="num">$21.50T</td><td class="num">$3.040T</td><td class="num">$149.29T</td><td class="num">2.036%</td><td class="num">14.40%</td></tr>
+    <tr><td>7</td><td class="num">$54.00T</td><td class="num">$7.634T</td><td class="num">$154.36T</td><td class="num">4.945%</td><td class="num">34.99%</td></tr>
+    <tr class="hl"><td>8</td><td class="num">$111.33T</td><td class="num">$12.50T</td><td class="num">$159.04T</td><td class="num">7.86%</td><td class="num">70.00%</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The document reports Year 8 as 70% of GDP. That figure uses GMV. The revenue share for Year 8 is 7.9%. The document's own share column is also 1,000 times too high for Years 1 to 4. Year 3 GMV of $25 billion is about 71 times Year 2 and should be confirmed against the source model.</p>
+
+<h2>5. Growth Path</h2>
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Path</th><th>Assumption</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>Document target</td><td class="num">GMV from $20M to $111.33T by Year 8</td><td>About 820% GMV growth every year for seven years</td></tr>
+    <tr><td>Fixed 100% growth</td><td class="num">GMV doubles every year from $20M</td><td>Reaches 70% of GDP in about Year 25</td></tr>
+    <tr><td>Full reinvestment</td><td class="num">$3.52M reserve, 26 turns, 24.2% take, no costs</td><td>63.1% in Year 8; 70% reached in Year 9</td></tr>
+    <tr class="hl"><td>Required turnover</td><td class="num">Reserve deployed each year, 24.2% take</td><td>About 26.4 turns per year to reach 70% in Year 8</td></tr>
+  </tbody>
+</table>
+</div>
+<p>The document's Year 5 reserve of $1.06 trillion sits within the cumulative revenue available to that point. Its Year 8 reserve of $29.99 trillion is about $5.5 trillion above the maximum cumulative revenue the document's own figures produce, which is about $24.5 trillion with full retention. The document does not state the cost assumptions that would bridge that gap.</p>
+
+<h2>6. Breakeven, Feasibility, and Viability</h2>
+<p><strong>Seed and spend.</strong> The seed round is $1.20M: $480K of parent equity and a $720K Singapore venture debt facility. Year 1 spend is $864K of CapEx for SAP BTP middleware, process mapping, and transfer-pricing setup, plus $336K of OpEx for the PwC managed-services agreement and the initial Standard Chartered liquidity container.</p>
+<p><strong>Breakeven.</strong> The document projects operational breakeven in Month 4 after launch. It also projects that a $20M pilot GMV on the India–ASEAN ONDC corridor yields $3.52M of retained reserves in Year 1, which repays the $720K debt in its first cycle. The Year 1 revenue in the matrix is $9.44M, so the document does not explain how that revenue becomes $3.52M of reserves. Year 1 spend of $1.2M would leave about $8.2M, not $3.52M.</p>
+<p><strong>Feasibility.</strong> The document describes an integration layer between SAP S/4HANA and the Proxtera API hub, with SGS inspection webhooks, and regulatory alignment with MAS and PDPA through Delper Pte. Ltd. None of these partnerships is supported by a cited contract or public announcement in the document.</p>
+<p><strong>Viability.</strong> The document argues that traditional supply-chain friction of 16% to 25.5% can be cut by a fixed 5.1% discount, so Delper captures 94.9% of the friction pool as fee revenue. The discount is stated as a fixed input and is not tied to market data.</p>
+
+<h2>7. Risks and Strengths</h2>
+<div class="card">
+  <h3>Strengths</h3>
+  <ul>
+    <li>Closed-loop ledger netting, which the document says removes cash velocity and transfer fees within the network.</li>
+    <li>Self-funded growth from 100% profit reinvestment, with no external financing needed in the document's model.</li>
+    <li>A dynamic pricing model tied to the seller's expense breakout, which gives buyers a verifiable saving on paper.</li>
+  </ul>
+</div>
+<div class="card">
+  <h3>Risks</h3>
+  <ul>
+    <li><strong>Integration dependency:</strong> Disruption of SAP BTP Event Mesh or Proxtera endpoints would create transaction backlogs.</li>
+    <li><strong>Adoption limits:</strong> Enterprise clients need structured SAP S/4HANA cores, which limits uptake among smaller firms.</li>
+    <li><strong>Regulatory exposure:</strong> The document's claim of antitrust immunity through BOOT concessions has no cited legal basis. Antitrust review by the US FTC or European Commission remains a risk.</li>
+    <li><strong>Banking treatment:</strong> The document says reserves inside partner banks satisfy Basel III capital ratios. Those ratios apply to a bank's own capital, so the claim does not hold as written.</li>
+    <li><strong>Settlement:</strong> Netting cannot remove settlement with parties outside the network, and the document does not address the licences needed for payment, lending, or custody in each market.</li>
+    <li><strong>Collateral:</strong> The zero-risk treatment of partner banks assumes cargo can always be sold for at least the advanced amount, which the document does not evidence.</li>
+  </ul>
+</div>
+
+<h2>8. Inconsistencies in the Source</h2>
+<ul>
+  <li><strong>Return on equity:</strong> The verdict cites a 70% ROE. The document's own figures, $3.52M profit on $480K of parent equity, give about 733%.</li>
+  <li><strong>Year 1 pilot:</strong> The matrix labels Year 1 GMV as $20.00 billion, but its revenue figures reconcile only with a $20.00 million pilot.</li>
+  <li><strong>GDP basis:</strong> The 70% GDP claim compares GMV to GDP. The document's revenue-based share is 7.9%.</li>
+  <li><strong>Reserve ceiling:</strong> The $29.99T Year 8 reserve exceeds the maximum cumulative revenue the document implies, about $24.5T.</li>
+  <li><strong>Units and shares:</strong> The stated share column for Years 1 to 4 is 1,000 times too high.</li>
+</ul>
+
+<h2>9. Verdict in the Source and Points to Verify</h2>
+<p>The document concludes that Delper is structurally sound, highly viable, and high-yielding, and recommends immediate global rollout with market dominance within 96 months. It supports this with four claims: defensible positioning through SAP integration, a self-funding capital structure with a 70% ROE, zero default risk on bonded cargo, and regulatory protection through BOOT concessions.</p>
+<p>Before relying on any of these claims, the following should be verified: the Year 1 GMV basis, the reserve bridge from revenue to retained reserves, the turnover and transaction capacity required for the 70% target, the partner and government agreements, the legal basis for antitrust immunity, and the Basel III treatment.</p>
+
+<h2>10. Feature Advantage and Benefit Analysis</h2>
+<p>The document's feature set rests on a few ideas: integration with existing ERP systems, internal netting, automated quality gates, and bank-backed credit. Each has a plausible benefit, but the document backs most of them with little evidence.</p>
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Feature</th><th>Advantage claimed</th><th>Benefit to user</th><th>Check against the document</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Dynamic expense-based pricing</td><td>Fee = friction cost × 0.949</td><td>Buyer keeps 5.1% of the friction cost</td><td>The saving is small, and the 16% to 25.5% friction range is unsourced</td></tr>
+    <tr><td>Closed-loop ledger netting</td><td>Settlement by internal offsets, with no cash transfer</td><td>Faster settlement, fewer transfer fees</td><td>Works only between network members; external payments still need settlement</td></tr>
+    <tr><td>SAP S/4HANA integration</td><td>Automated cross-border checks through SAP BTP Event Mesh</td><td>Less manual work for large ERP users</td><td>Limits uptake to firms with SAP cores; partner links are unverified</td></tr>
+    <tr><td>SGS quality webhooks</td><td>Automatic pass or fail, with ledger reversal on failure</td><td>Fewer document checks, lower default risk</td><td>Depends on an SGS agreement that is not shown</td></tr>
+    <tr><td>Bank-backed trade credit</td><td>Reserves fund buyer credit at 6.5% p.a.</td><td>Credit without the buyer's bank balance sheet</td><td>The Basel III claim does not hold as written; assumes cargo always sells for the advanced amount</td></tr>
+    <tr><td>Bonded warehouse custody</td><td>Cargo stays locked until payment</td><td>Security for the funder</td><td>Liquidation costs and price declines are not addressed</td></tr>
+    <tr><td>Single API endpoint (Proxtera)</td><td>One integration point for all corridors</td><td>Simpler onboarding</td><td>Product existence not verified</td></tr>
+    <tr><td>Commodity micro-targeting</td><td>Fee applied to premium sub-segments only</td><td>Fee fits thin commodity margins</td><td>Narrows the addressable pool; the effect is not quantified</td></tr>
+    <tr><td>Sovereign BOOT concessions</td><td>Delper funds and runs state ports and customs</td><td>Large distribution and lock-in</td><td>No contracts shown; antitrust immunity has no cited legal basis</td></tr>
+    <tr><td>100% profit reinvestment</td><td>Self-funded growth with no outside capital</td><td>No dilution or external debt</td><td>No cost model; the $29.99T reserve cannot be reproduced</td></tr>
+  </tbody>
+</table>
+</div>
+<div class="card">
+  <h3>Strongest in principle</h3>
+  <p>Integration with existing ERP systems and quality-gated credit. Both reduce manual work and default risk, if the partners and processes work as described.</p>
+</div>
+<div class="card">
+  <h3>Weakest</h3>
+  <p>The savings claim rests on an unsourced friction estimate, the reserve projection has no cost model, and the legal and banking claims do not hold as written.</p>
+</div>
+
+<h2>11. Recommendations</h2>
+<ul>
+  <li>Present the GDP share on a stated basis, and report the revenue-basis figure alongside any GMV-basis figure.</li>
+  <li>Provide the full cost structure between revenue and net profit, with the assumption behind each line.</li>
+  <li>Reconcile the Year 1 GMV basis and show the bridge from $9.44M of revenue to the $3.52M reserve.</li>
+  <li>Model the required turnover and transaction volume explicitly, including capacity, failure rates, and delays.</li>
+  <li>Provide signed agreements or public confirmation for each named bank, vendor, and government partner.</li>
+  <li>Obtain written legal and regulatory opinions for the antitrust and Basel III claims, or remove them.</li>
+</ul>
+
+<div class="disclaimer">
+  <strong>Disclaimer: This is not investment advice.</strong><br>
+  This summary reviews an internal business and strategy document for general informational purposes only. It is not an offer, solicitation, or recommendation to buy, sell, or invest in any security, company, or financial product. The projections, revenue figures, fee structures, reserve balances, and timelines are management assumptions that have not been independently verified. Several are internally inconsistent, as noted above. Readers should consult qualified financial, legal, and tax advisers before making any investment or business decision.
+</div>
+
+</div>
+</body>
+</html>
