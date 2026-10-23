@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delper Global Trust Infrastructure: Executive Summary and Investment Plan</title>
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #f5f7fa; --surface: #ffffff; --text: #1f2933; --muted: #52606d;
+  --accent: #1f4e79; --accent-light: #e8f0f8; --border: #d9e2ec;
+  --ok: #1d7a4a; --ok-bg: #e6f4ec;
+  --err: #b42318; --err-bg: #fdecea;
+  --warn-bg: #fff8e1; --warn-border: #d9a421;
+  --hi: #0b5d3b; --hi-bg: #e3f5ec;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121820; --surface: #1a2330; --text: #e4e9f0; --muted: #9aa8b8;
+    --accent: #7fb2e5; --accent-light: #223247; --border: #2c3a4d;
+    --ok: #6fd39a; --ok-bg: #173325; --err: #ff8a80; --err-bg: #3a1c1a;
+    --warn-bg: #3a3118; --warn-border: #d9a421; --hi: #6fd39a; --hi-bg: #173325;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121820; --surface: #1a2330; --text: #e4e9f0; --muted: #9aa8b8;
+  --accent: #7fb2e5; --accent-light: #223247; --border: #2c3a4d;
+  --ok: #6fd39a; --ok-bg: #173325; --err: #ff8a80; --err-bg: #3a1c1a;
+  --warn-bg: #3a3118; --warn-border: #d9a421; --hi: #6fd39a; --hi-bg: #173325;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: Georgia, "Times New Roman", serif; line-height: 1.7; font-size: 16px;
+}
+.container {
+  max-width: 880px; margin: 24px auto; background: var(--surface);
+  padding: 44px 52px; border: 1px solid var(--border); border-radius: 6px;
+}
+header { border-bottom: 3px solid var(--accent); padding-bottom: 18px; margin-bottom: 28px; }
+.wordmark { font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--accent); letter-spacing: .04em; margin-bottom: 14px; }
+h1 { font-size: 1.95rem; color: var(--accent); margin: 0 0 8px; line-height: 1.25; }
+.subtitle { font-family: Arial, Helvetica, sans-serif; color: var(--muted); font-size: 0.95rem; }
+h2 {
+  font-family: Arial, Helvetica, sans-serif; font-size: 1.3rem; color: var(--accent);
+  margin: 38px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px;
+}
+h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1.04rem; margin: 22px 0 8px; }
+p, li { text-align: justify; hyphens: auto; }
+ul { padding-left: 22px; }
+li { margin-bottom: 8px; }
+.disclaimer {
+  background: var(--warn-bg); border: 1px solid var(--warn-border); border-left: 6px solid var(--warn-border);
+  border-radius: 4px; padding: 16px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 0.9rem;
+  text-align: justify; margin-bottom: 26px;
+}
+.disclaimer strong { font-size: 0.98rem; }
+.highlight {
+  background: var(--hi-bg); border: 2px solid var(--hi); border-radius: 6px;
+  padding: 20px 22px; margin: 18px 0;
+}
+.highlight .label {
+  font-family: Arial, Helvetica, sans-serif; font-size: 0.78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--hi);
+}
+.highlight .big {
+  font-family: Arial, Helvetica, sans-serif; font-size: 2.6rem; font-weight: 700;
+  color: var(--hi); line-height: 1.1; margin: 4px 0 6px; font-variant-numeric: tabular-nums;
+}
+.highlight p { margin: 6px 0 0; }
+.formula {
+  background: var(--accent-light); border-left: 4px solid var(--accent); padding: 12px 16px;
+  font-family: "Courier New", monospace; font-size: 0.92rem; margin: 14px 0; overflow-x: auto;
+}
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+@media (max-width: 640px) { .kpis { grid-template-columns: 1fr; } }
+.kpi {
+  border: 1px solid var(--border); border-top: 4px solid var(--accent); border-radius: 4px;
+  padding: 14px; background: var(--bg); font-family: Arial, Helvetica, sans-serif;
+}
+.kpi .v { font-size: 1.4rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.kpi .k { font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 0.85rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--accent); background: var(--bg); }
+td.num, th.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+tr.hl td { background: var(--hi-bg); font-weight: 700; }
+.card {
+  border: 1px solid var(--border); border-radius: 4px; padding: 14px 18px;
+  background: var(--bg); margin: 12px 0;
+}
+.card h3 { margin-top: 0; }
+.footer { font-family: Arial, Helvetica, sans-serif; font-size: 0.82rem; color: var(--muted); margin-top: 30px; }
+.footer a { color: var(--accent); text-decoration: underline; }
+@media (max-width: 640px) {
+  .container { padding: 26px 20px; margin: 10px auto; }
+  h1 { font-size: 1.55rem; }
+  .highlight .big { font-size: 2.1rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="wordmark">DELPER</div>
+  <h1>Delper Global Trust Infrastructure: Executive Summary and Investment Plan</h1>
+  <div class="subtitle">11-year outlook with turnover capped at 26 turns, GMV capped at 70% of world GDP, all after-tax profit reinvested until the cap, and a $4.0M investment for 20% of the company</div>
+  <p class="subtitle"><strong>Revised draft. Track A reinvests 100% of after-tax profit until GMV reaches 70% of base world GDP, which happens in Year 10. The seed investors exit in Year 1 through a buyback paid by GK Bharta. Capital, revenue, and the Year 10 cap are recalculated on that basis.</strong> GMV in every year is capped at 70% of base world GDP. Capital, revenue, investor receipts, payback, and the Year 11 figures are recalculated on that basis.</p>
+</header>
+
+<h2>1. Rollout Plan</h2>
+<div class="tablewrap"><table><thead><tr><th>Phase</th><th>Years</th><th>Scope</th></tr></thead><tbody>
+<tr><td>Regional entry</td><td>Years 1 to 3</td><td>APAC, Asia, USA, Europe</td></tr>
+<tr><td>Global</td><td>Years 3 to 5</td><td>Global coverage across commodity and e-commerce rails, phased in from Year 3</td></tr>
+<tr class="hl"><td>Global plus sovereign BOOT</td><td>Years 6 to 11</td><td>Global coverage with BOOT concessions for customs and logistics infrastructure</td></tr>
+</tbody></table></div>
+<p>Year 10 GMV of $119.45T is capped at 70% of world GDP and is about 1,306% of the $9.15T addressable pool. Reaching it requires the market to be used at that scale.</p>
+
+<h2>2. Operating Flow</h2>
+<div class="tablewrap"><table><thead><tr><th>Step</th><th>Party or system</th><th>Role</th></tr></thead><tbody>
+<tr><td>1. Onboarding</td><td>Proxtera</td><td>Single API endpoint that onboards global buyers and vendors</td></tr>
+<tr><td>2. Order and bidding</td><td>SAP S/4HANA with real-time bidding</td><td>Vendors bid on price and delivery for each order; the lowest qualifying offer is selected</td></tr>
+<tr><td>3. Escrow</td><td>Tazapay</td><td>Holds buyer funds until goods pass inspection</td></tr>
+<tr><td>4. Quality control</td><td>SGS</td><td>Independent inspection with pass and fail webhooks</td></tr>
+<tr><td>5. Release</td><td>Ledger and bonded warehouse</td><td>On pass, funds are released to the vendor; on fail, the credit line is reversed</td></tr>
+<tr><td>6. Delivery to door</td><td>Logistics providers selected by bidding</td><td>Goods move from the warehouse to the buyer at the winning bid's price and terms</td></tr>
+</tbody></table></div>
+<p>Escrow, doorstep delivery, and all other costs are charged to the customer as extra, outside the revenue split. They are not included in the revenue split or the payback figures, and they raise the buyer's landed price.</p>
+
+<h2>3. Revenue Streams</h2>
+<div class="card"><h3>Stream 1: Software take rates</h3><p>Delper removes a 5.1% share of the traditional friction cost, leaving a take rate of 24.2% on consumer and high-margin goods and 15.184% on premium commodities. Transactions must be at least USD 300.</p></div>
+<div class="card"><h3>Stream 2: Liquidity spread</h3><p>Delper lends from its reserves on 14 to 90 day facilities at a stated 6.5% p.a. Partner banks take a 0.5% p.a. frontending fee, leaving Delper a 6.0% p.a. net spread secured by bonded cargo. On the revenue basis used here, this spread sits inside the 24.2% of turnover, so it is not added on top.</p></div>
+<div class="card"><h3>Stream 3: Sovereign BOOT concessions</h3><p>Delper funds customs ports, logistics hubs, and data centers under 10-year build-own-operate-transfer contracts, and applies the 15.184% rate to port duties and clearing fees. BOOT activity begins in Year 6. BOOT revenue is not included in the revenue figures in this document; Section 12 shows only the GDP sensitivity.</p></div>
+
+<h2>4. Turnover Targets</h2>
+<p>Turnover is 26 from Year 2, the full capacity of a 14-day cycle, and is capped by GMV at 70% of world GDP. From Year 1 all after-tax profit is reinvested into capital until GMV reaches the cap. In this model the cap is reached in Year 10, and from that year profit is paid to GK Bharta.</p>
+<div class="tablewrap"><table><thead><tr><th>Turns per year</th><th class="num">Purpose</th><th class="num">Result</th></tr></thead><tbody><tr><td>17.6</td><td class="num">Year 1 turnover on $2.21M of trading capital</td><td class="num">Year 1 GMV of $38.97M</td></tr><tr><td>26</td><td class="num">Plan turnover from Year 2</td><td class="num">GMV cap binds in Year 10 (GMV of $119.45T is 70% of base GDP)</td></tr><tr><td>100% of after-tax profit</td><td class="num">Reinvestment rule until the cap is reached</td><td class="num">Capital grows from $2.21M to $17.21T by the end of Year 9</td></tr></tbody></table></div>
+<p>Year 1 turnover is $38.97M of GMV, using $2.21M of trading capital at 17.6 turns. Revenue is 24.2% of turnover, which gives $9.43M. After tax and OpEx, $7.55M is reinvested, so Year 1 closes at $9.76M: the $7.55M reinvested plus the $2.21M trading capital. That is Year 2's opening capital.</p>
+
+<h2>5. Bottom Line</h2>
+<p>Delper connects global buyers and vendors through one integration layer, holds payment in escrow, checks quality at an independent inspection stage, and sources orders through competitive bidding on price and logistics. Revenue comes from a software take rate, a liquidity spread, and, from Year 6, sovereign BOOT concessions (not included in the figures below). The seed investors exit in Year 1: GK Bharta pays the buyback of their principal and their 20% interest, and from then holds the company. Track A reinvests all after-tax profit until GMV reaches 70% of world GDP, which happens in Year 10 in this model. From that year, profit is paid to GK. The 70% cap compares transaction volume (GMV), which counts each step of a chain, with GDP, which counts only final output. It is a ceiling set by assumption, not a measured share of economic output.</p>
+<div class="kpis">
+  <div class="kpi"><div class="v">Year 10</div><div class="k">First year GMV is held at the 70% cap</div></div>
+  <div class="kpi"><div class="v">Year 1</div><div class="k">Investor exit: principal and 20% interest bought back by GK</div></div>
+  <div class="kpi"><div class="v">$119.45T</div><div class="k">Year 10 GMV, held at 70% of base world GDP</div></div>
+</div>
+<h2>6. Use of the $4.0M Investment</h2>
+<p>All of the investment is capitalised as CapEx. Of that, $2.214M is Year 1 trading capital and $1.786M is set-up spend.</p>
+<div class="tablewrap"><table><thead><tr><th>Item</th><th class="num">Amount</th><th>Year 1 trading capital?</th></tr></thead><tbody>
+<tr><td>Business process initial investment (SAP BTP middleware, Signavio process mapping, transfer pricing)</td><td class="num">$864,000</td><td>Yes</td></tr>
+<tr><td>Singapore incorporation and licensing</td><td class="num">$250,000</td><td>No</td></tr>
+<tr><td>SAP S/4HANA ERP licence and implementation</td><td class="num">$386,000</td><td>No</td></tr>
+<tr><td>Local partner expense</td><td class="num">$400,000</td><td>No</td></tr>
+<tr><td>Office setup</td><td class="num">$200,000</td><td>No</td></tr>
+<tr><td>Technology expense</td><td class="num">$400,000</td><td>No</td></tr>
+<tr><td>SGS quality webhook integration</td><td class="num">$150,000</td><td>No</td></tr>
+<tr><td>Initial liquidity reserve</td><td class="num">$1,000,000</td><td>Yes</td></tr>
+<tr><td>Contingency (balance)</td><td class="num">$350,000</td><td>Yes</td></tr>
+<tr class="hl"><td>Total CapEx</td><td class="num">$4,000,000</td><td>$2,214,000 trading</td></tr>
+</tbody></table></div>
+<h3>Year 1 uses of funds</h3>
+<div class="tablewrap"><table><thead><tr><th>Use</th><th class="num">Amount</th><th>Funded from</th></tr></thead><tbody>
+<tr><td>CapEx (nine items above)</td><td class="num">$4,000,000</td><td>Investment</td></tr>
+<tr><td>Year 1 OpEx</td><td class="num">$336,000</td><td>Year 1 revenue</td></tr>
+<tr class="hl"><td>Total Year 1 uses</td><td class="num">$4,336,000</td><td></td></tr>
+</tbody></table></div>
+
+<h2>7. Year 1 Revenue Split</h2>
+<p>Pretax profit is revenue less OpEx. Income tax at 17% is paid from pretax profit, and the remainder is reinvested in full. The 24.15% CapEx repayment stream in earlier drafts no longer applies, because GK holds 100% of the company after the Year 1 buyback. Treating pretax profit as revenue less OpEx is an assumption to confirm with the tax adviser.</p>
+<div class="tablewrap"><table><thead><tr><th>Use of revenue</th><th class="num">Share</th><th class="num">Amount</th></tr></thead><tbody><tr><td>Reinvested into the reserve (after tax)</td><td class="num">80.04%</td><td class="num">$7.55M</td></tr><tr><td>Income tax (17% of pretax)</td><td class="num">16.40%</td><td class="num">$1.55M</td></tr><tr><td>OpEx (fixed in Year 1)</td><td class="num">3.56%</td><td class="num">$0.34M</td></tr><tr><td>Total revenue</td><td class="num">100%</td><td class="num">$9.43M</td></tr></tbody></table></div>
+<p>Bridge from Year 1 turnover to Year 2 opening capital</p>
+<div class="tablewrap"><table><thead><tr><th>Bridge line</th><th class="num">Amount</th></tr></thead><tbody><tr><td>Year 1 turnover (GMV)</td><td class="num">$38.97M</td></tr><tr><td>Year 1 trading capital ($864K business process, $1.0M liquidity reserve, $350K contingency)</td><td class="num">$2.21M</td></tr><tr><td>Year 1 turns (turnover ÷ trading capital)</td><td class="num">17.6</td></tr><tr><td>Revenue at 24.2% of turnover</td><td class="num">$9.43M</td></tr><tr><td>Less OpEx (fixed)</td><td class="num">($0.34M)</td></tr><tr><td>Less income tax (17% of pretax)</td><td class="num">($1.55M)</td></tr><tr><td>Reserve reinvested from revenue (100% of after-tax profit)</td><td class="num">$7.55M</td></tr><tr class="hl"><td>Year 2 opening capital (reinvested reserve plus trading capital)</td><td class="num">$9.76M</td></tr></tbody></table></div>
+<p>The remaining $1.786M of set-up spend is not turned over.</p>
+
+<h2>8. Investor Return and Buyback</h2>
+<p>The Track A seed investor puts in $4.0M for 20% of the company. In Year 1 GK Bharta pays the seed investors USD 8.00M across both tracks, which returns their principal and buys back their 20% interest in each track. The Track A share of that payment is USD 4.0M. The investor is not repaid from a CapEx stream, so the 24.15% repayment stream and its 4.83% investor receipt no longer apply.</p>
+<div class="kpis">
+  <div class="kpi"><div class="v">20%</div><div class="k">Ownership bought back for $4.0M (post-money $20.0M)</div></div>
+  <div class="kpi"><div class="v">$200,000</div><div class="k">Price per 1% of the company</div></div>
+  <div class="kpi"><div class="v">Year 1</div><div class="k">Investor exit, paid by GK Bharta</div></div>
+</div>
+<p>Exit decision. The investor exits at month 12, receiving its USD 4.0M principal and the buyback of its 20% interest. GK Bharta pays this from palm oil income of USD 150.00M a year (10,000,000 metric tons at USD 15 per ton). The palm oil business continues as usual after the buyback. The palm oil deal is outside the model in this document and must be evidenced before commitment.</p>
+
+<h2>9. Plan Turnover and Payback</h2>
+<p>Turnover is 17.6 in Year 1, when trading capital is $2.21M and GMV is $38.97M. From Year 2 it is 26 applied to the prior year's closing capital, capped at 70% of world GDP. The cap binds in Year 10. Effective turns are GMV divided by opening capital.</p>
+<div class="tablewrap"><table><thead><tr><th>Year</th><th class="num">Turns (effective)</th><th class="num">GMV</th><th class="num">Take-rate revenue</th><th class="num">Reinvested (100%)</th><th class="num">Paid to GK</th><th class="num">Closing capital</th><th class="num">Share of base GDP</th></tr></thead><tbody><tr><td>1</td><td class="num">17.6</td><td class="num">$38.97M</td><td class="num">$9.43M</td><td class="num">$7.55M</td><td class="num">$0</td><td class="num">$9.76M</td><td class="num">0.00%</td></tr><tr><td>2</td><td class="num">26.0</td><td class="num">$253.81M</td><td class="num">$61.42M</td><td class="num">$49.17M</td><td class="num">$0</td><td class="num">$58.93M</td><td class="num">0.00%</td></tr><tr><td>3</td><td class="num">26.0</td><td class="num">$1.53B</td><td class="num">$370.77M</td><td class="num">$296.78M</td><td class="num">$0</td><td class="num">$355.71M</td><td class="num">0.00%</td></tr><tr><td>4</td><td class="num">26.0</td><td class="num">$9.25B</td><td class="num">$2.24B</td><td class="num">$1.79B</td><td class="num">$0</td><td class="num">$2.15B</td><td class="num">0.01%</td></tr><tr><td>5</td><td class="num">26.0</td><td class="num">$55.83B</td><td class="num">$13.51B</td><td class="num">$10.81B</td><td class="num">$0</td><td class="num">$12.96B</td><td class="num">0.04%</td></tr><tr><td>6</td><td class="num">26.0</td><td class="num">$337.00B</td><td class="num">$81.55B</td><td class="num">$65.28B</td><td class="num">$0</td><td class="num">$78.24B</td><td class="num">0.23%</td></tr><tr><td>7</td><td class="num">26.0</td><td class="num">$2.03T</td><td class="num">$492.30B</td><td class="num">$394.06B</td><td class="num">$0</td><td class="num">$472.30B</td><td class="num">1.32%</td></tr><tr><td>8</td><td class="num">26.0</td><td class="num">$12.28T</td><td class="num">$2.97T</td><td class="num">$2.38T</td><td class="num">$0</td><td class="num">$2.85T</td><td class="num">7.69%</td></tr><tr><td>9</td><td class="num">26.0</td><td class="num">$74.13T</td><td class="num">$17.94T</td><td class="num">$14.36T</td><td class="num">$0</td><td class="num">$17.21T</td><td class="num">44.92%</td></tr><tr><td>10</td><td class="num">6.9</td><td class="num">$119.45T</td><td class="num">$28.91T</td><td class="num">$0</td><td class="num">$23.14T</td><td class="num">$17.21T</td><td class="num">70.00%</td></tr><tr><td>11</td><td class="num">7.2</td><td class="num">$123.51T</td><td class="num">$29.89T</td><td class="num">$0</td><td class="num">$23.92T</td><td class="num">$17.21T</td><td class="num">70.00%</td></tr></tbody></table></div>
+
+<h2>9a. Capital Breakup by Year</h2>
+<p>Year 0 is the $4.0M investment, of which $2.214M is trading capital and $1.786M is set-up spend. From Year 2 opening capital is the prior closing capital. GMV is the lower of opening capital times turns and 70% of base world GDP. Revenue is 24.2% of GMV. OpEx is 3.56% of revenue from Year 2 and fixed at $336,000 in Year 1. Income tax is 17% of pretax profit.</p>
+<div class="tablewrap"><table><thead><tr><th>Year</th><th class="num">Opening capital</th><th class="num">GMV</th><th class="num">Revenue</th><th class="num">Income tax (17%)</th><th class="num">OpEx</th><th class="num">Reinvested</th><th class="num">Paid to GK</th><th class="num">Closing capital</th></tr></thead><tbody><tr><td>1</td><td class="num">$2.21M</td><td class="num">$38.97M</td><td class="num">$9.43M</td><td class="num">$1.55M</td><td class="num">$0.34M</td><td class="num">$7.55M</td><td class="num">$0</td><td class="num">$9.76M</td></tr><tr><td>2</td><td class="num">$9.76M</td><td class="num">$253.81M</td><td class="num">$61.42M</td><td class="num">$10.07M</td><td class="num">$2.19M</td><td class="num">$49.17M</td><td class="num">$0</td><td class="num">$58.93M</td></tr><tr><td>3</td><td class="num">$58.93M</td><td class="num">$1.53B</td><td class="num">$370.77M</td><td class="num">$60.79M</td><td class="num">$13.20M</td><td class="num">$296.78M</td><td class="num">$0</td><td class="num">$355.71M</td></tr><tr><td>4</td><td class="num">$355.71M</td><td class="num">$9.25B</td><td class="num">$2.24B</td><td class="num">$366.94M</td><td class="num">$79.68M</td><td class="num">$1.79B</td><td class="num">$0</td><td class="num">$2.15B</td></tr><tr><td>5</td><td class="num">$2.15B</td><td class="num">$55.83B</td><td class="num">$13.51B</td><td class="num">$2.21B</td><td class="num">$480.97M</td><td class="num">$10.81B</td><td class="num">$0</td><td class="num">$12.96B</td></tr><tr><td>6</td><td class="num">$12.96B</td><td class="num">$337.00B</td><td class="num">$81.55B</td><td class="num">$13.37B</td><td class="num">$2.90B</td><td class="num">$65.28B</td><td class="num">$0</td><td class="num">$78.24B</td></tr><tr><td>7</td><td class="num">$78.24B</td><td class="num">$2.03T</td><td class="num">$492.30B</td><td class="num">$80.71B</td><td class="num">$17.53B</td><td class="num">$394.06B</td><td class="num">$0</td><td class="num">$472.30B</td></tr><tr><td>8</td><td class="num">$472.30B</td><td class="num">$12.28T</td><td class="num">$2.97T</td><td class="num">$487.21B</td><td class="num">$105.79B</td><td class="num">$2.38T</td><td class="num">$0</td><td class="num">$2.85T</td></tr><tr><td>9</td><td class="num">$2.85T</td><td class="num">$74.13T</td><td class="num">$17.94T</td><td class="num">$2.94T</td><td class="num">$638.62B</td><td class="num">$14.36T</td><td class="num">$0</td><td class="num">$17.21T</td></tr><tr><td>10</td><td class="num">$17.21T</td><td class="num">$119.45T</td><td class="num">$28.91T</td><td class="num">$4.74T</td><td class="num">$1.03T</td><td class="num">$0</td><td class="num">$23.14T</td><td class="num">$17.21T</td></tr><tr><td>11</td><td class="num">$17.21T</td><td class="num">$123.51T</td><td class="num">$29.89T</td><td class="num">$4.90T</td><td class="num">$1.06T</td><td class="num">$0</td><td class="num">$23.92T</td><td class="num">$17.21T</td></tr></tbody></table></div>
+
+<h2>10. Reinvestment and the 11-Year Path</h2>
+<p>Until the cap is reached, all after-tax profit is added to capital. GMV equals opening capital times turns, limited to 70% of base world GDP. The last column shows the share of base GDP that GMV would reach without the cap, for reference.</p>
+<div class="formula">Capital(t+1) = Capital(t) + 80.04% × Revenue(t), until the cap binds<br>GMV(t) = min(Capital(t) × turns, 70% × Base GDP(t))</div>
+<div class="tablewrap"><table><thead><tr><th>Year</th><th class="num">Base global GDP</th><th class="num">GMV (capped)</th><th class="num">Share of base GDP (capped)</th><th class="num">Uncapped share, for reference</th></tr></thead><tbody><tr><td>1</td><td class="num">$126.30T</td><td class="num">$38.97M</td><td class="num">0.00%</td><td class="num">0.00%</td></tr><tr><td>2</td><td class="num">$130.59T</td><td class="num">$253.81M</td><td class="num">0.00%</td><td class="num">0.00%</td></tr><tr><td>3</td><td class="num">$135.03T</td><td class="num">$1.53B</td><td class="num">0.00%</td><td class="num">0.00%</td></tr><tr><td>4</td><td class="num">$139.63T</td><td class="num">$9.25B</td><td class="num">0.01%</td><td class="num">0.01%</td></tr><tr><td>5</td><td class="num">$144.37T</td><td class="num">$55.83B</td><td class="num">0.04%</td><td class="num">0.04%</td></tr><tr><td>6</td><td class="num">$149.28T</td><td class="num">$337.00B</td><td class="num">0.23%</td><td class="num">0.23%</td></tr><tr><td>7</td><td class="num">$154.36T</td><td class="num">$2.03T</td><td class="num">1.32%</td><td class="num">1.32%</td></tr><tr><td>8</td><td class="num">$159.61T</td><td class="num">$12.28T</td><td class="num">7.69%</td><td class="num">7.69%</td></tr><tr><td>9</td><td class="num">$165.03T</td><td class="num">$74.13T</td><td class="num">44.92%</td><td class="num">44.92%</td></tr><tr><td>10</td><td class="num">$170.64T</td><td class="num">$119.45T</td><td class="num">70.00%</td><td class="num">262.23%</td></tr><tr><td>11</td><td class="num">$176.44T</td><td class="num">$123.51T</td><td class="num">70.00%</td><td class="num">253.61%</td></tr></tbody></table></div>
+<p>In Year 10 uncapped GMV would reach 262% of base GDP. With the cap, GMV is $119.45T, which is 70% of base GDP. Capital is frozen at $17.21T from Year 10, so profit is paid to GK and effective turns fall as GMV grows with GDP.</p>
+
+<h2>10a. Recursive Turnover and End-Customer Test</h2>
+<p>Reinvested capital stays in the ecosystem and funds each 14-day cycle. Until the cap is reached, only OpEx and income tax leave the business. From Year 10, profit is paid to GK. This holds only if vendor payments and buyer collections settle within each cycle, so the full balance is free again at the next turn.</p>
+<p>The end customer is the buyer, so turnover is recursive. The same buyer money is counted at each step of a chain. End-customer spend is therefore GMV divided by the chain depth, the number of steps a buyer's dollar passes through before it is consumed. Year 10 GMV of $119.45T is tested below against base world GDP of $170.64T.</p>
+<div class="tablewrap"><table><thead><tr><th>Chain depth (steps per end sale)</th><th class="num">End-customer spend, Year 10</th><th class="num">Share of base world GDP</th></tr></thead><tbody><tr><td>1</td><td class="num">$119.45T</td><td class="num">70%</td></tr><tr><td>1.5</td><td class="num">$79.63T</td><td class="num">47%</td></tr><tr><td>2</td><td class="num">$59.73T</td><td class="num">35%</td></tr><tr><td>3</td><td class="num">$39.82T</td><td class="num">23%</td></tr><tr><td>5</td><td class="num">$23.89T</td><td class="num">14%</td></tr></tbody></table></div>
+<p>The cap keeps GMV at or below 70% of world GDP, so end-customer spend stays within world GDP at any chain depth of 1 or more. Average chain depth for the commodity and e-commerce flows, and settlement within each cycle, both need evidence.</p>
+
+<h2>11. Plan Option: GMV Capped at 70% of World GDP</h2>
+<p>Plan turnover is 26 a year, capped by GMV at 70% of world GDP. From Year 10 capital is frozen, so effective turns are GMV divided by the frozen capital of $17.21T.</p>
+<div class="tablewrap"><table><thead><tr><th>Year</th><th class="num">GMV (capped)</th><th class="num">Share of base GDP</th><th class="num">Effective turns</th></tr></thead><tbody><tr><td>1</td><td class="num">$38.97M</td><td class="num">0.00%</td><td class="num">17.6</td></tr><tr><td>5</td><td class="num">$55.83B</td><td class="num">0.04%</td><td class="num">26.0</td></tr><tr><td>8</td><td class="num">$12.28T</td><td class="num">7.69%</td><td class="num">26.0</td></tr><tr><td>9</td><td class="num">$74.13T</td><td class="num">44.92%</td><td class="num">26.0</td></tr><tr><td>10</td><td class="num">$119.45T</td><td class="num">70.00%</td><td class="num">6.9</td></tr><tr><td>11</td><td class="num">$123.51T</td><td class="num">70.00%</td><td class="num">7.2</td></tr><tr><td>12</td><td class="num">$127.71T</td><td class="num">70.00%</td><td class="num">7.4</td></tr><tr><td>13</td><td class="num">$132.05T</td><td class="num">70.00%</td><td class="num">7.7</td></tr><tr><td>14</td><td class="num">$136.54T</td><td class="num">70.00%</td><td class="num">7.9</td></tr><tr><td>15</td><td class="num">$141.19T</td><td class="num">70.00%</td><td class="num">8.2</td></tr></tbody></table></div>
+<p>Conditions: Year 11 GMV of $123.51T is about 1,350% of the $9.15T addressable pool the document sizes across all rails, and about 494% of world merchandise exports, which are roughly $25T a year.</p>
+
+<h2>11a. KPI Scorecard</h2>
+<div class="tablewrap"><table><thead><tr><th>Metric</th><th class="num">Plan value</th></tr></thead><tbody><tr><td>Year 1 revenue</td><td class="num">$9.43M</td></tr><tr><td>Year 2 revenue</td><td class="num">$61.42M</td></tr><tr><td>Year 5 revenue</td><td class="num">$13.51B</td></tr><tr><td>Year 10 revenue</td><td class="num">$28.91T</td></tr><tr><td>Year 1 closing capital</td><td class="num">$9.76M</td></tr><tr><td>Year 10 closing capital (frozen)</td><td class="num">$17.21T</td></tr><tr><td>Year 10 GMV (capped)</td><td class="num">$119.45T</td></tr><tr><td>Investor exit</td><td class="num">Year 1, paid by GK Bharta</td></tr><tr><td>Track A profit to GK</td><td class="num">From Year 10</td></tr></tbody></table></div>
+
+<h2>12. BOOT-Linked GDP Sensitivity</h2>
+<p>As sovereign BOOT infrastructure is built, global GDP rises above the base path. The uplift is 0% through Year 5, then rises in a straight line, reaching 1.2% by Year 11. This is a judgement, not a result derived from the document. The GMV cap is applied to base GDP in this section, not to the uplifted figure.</p>
+<div class="tablewrap"><table><thead><tr><th>Year</th><th class="num">Uplift on base</th><th class="num">Adjusted GDP</th><th class="num">Base GDP</th></tr></thead><tbody><tr><td>5</td><td class="num">0.0%</td><td class="num">$144.37T</td><td class="num">$144.37T</td></tr><tr><td>6</td><td class="num">0.2%</td><td class="num">$149.58T</td><td class="num">$149.28T</td></tr><tr><td>7</td><td class="num">0.4%</td><td class="num">$154.98T</td><td class="num">$154.36T</td></tr><tr><td>8</td><td class="num">0.6%</td><td class="num">$160.57T</td><td class="num">$159.61T</td></tr><tr><td>9</td><td class="num">0.8%</td><td class="num">$166.35T</td><td class="num">$165.03T</td></tr><tr><td>10</td><td class="num">1.0%</td><td class="num">$172.35T</td><td class="num">$170.64T</td></tr><tr><td>11</td><td class="num">1.2%</td><td class="num">$178.56T</td><td class="num">$176.44T</td></tr></tbody></table></div>
+<p>The cap binds in Year 10 on the base path. With the BOOT uplift, the cap is applied to base GDP as stated above, so the result does not change.</p>
+
+<h2>13. Risks</h2>
+<ul>
+ <li><strong>Reinvestment dependence:</strong> Track A pays no profit to GK until Year 10. Growth depends on 26 turns a year and on settlement within each cycle.</li>
+ <li><strong>Cap binding:</strong> From Year 10 GMV is held at 70% of world GDP, and effective turns fall as capital is frozen and GMV grows with GDP.</li>
+ <li><strong>Capacity:</strong> 26 turns means a full 14-day cycle every year from Year 2, with no slack for delay, default, or disruption.</li>
+ <li><strong>Year 1 capital:</strong> Year 1 turnover of $38.97M rests on $2.21M of trading capital. Set-up spend of $1.786M is not turned over.</li>
+ <li><strong>Demand:</strong> Year 10 volume of $119.45T needs a market about 13 times the addressable pool the document sizes.</li>
+ <li><strong>Customer pricing:</strong> Passing all other costs to customers raises the landed price. That weakens the best-price claim and may reduce volume.</li>
+ <li><strong>Integration dependency:</strong> Disruption of SAP BTP Event Mesh or Proxtera endpoints would create transaction backlogs.</li>
+ <li><strong>Regulatory exposure:</strong> Antitrust review by the US FTC or European Commission remains a risk. The antitrust immunity claim for BOOT concessions has no cited legal basis.</li>
+ <li><strong>Banking treatment:</strong> Basel III ratios apply to a bank's own capital, so the treatment of reserves inside partner banks needs a regulatory opinion.</li>
+ <li><strong>Licensing and settlement:</strong> Netting cannot remove settlement with parties outside the network, and licences for payment, lending, and custody in each market need confirming.</li>
+ <li><strong>Income tax basis:</strong> Tax is 17% of pretax profit, with pretax taken as revenue less OpEx. The pretax base needs confirmation with a Singapore tax adviser.</li>
+</ul>
+
+<h2>14. Open Items Before Investment</h2>
+<ul>
+ <li>Evidence that the plan can sustain 26 turns from Year 2, the full 14-day cycle.</li>
+ <li>Evidence that the market could supply GMV at 70% of world GDP by Year 10, and the basis for the GDP path.</li>
+ <li>Confirmation of the pretax base and the income tax treatment, with a Singapore tax adviser.</li>
+ <li>Treatment of the $1.0M liquidity reserve as CapEx or working capital, to confirm with an auditor.</li>
+ <li>Signed agreements or public confirmation for Proxtera, Tazapay, SGS, and each partner bank and government partner.</li>
+ <li>Escrow, bidding, logistics, and all other costs passed to customers, which are not yet costed in the investment plan. Confirm the principal or agent treatment with the accountant.</li>
+ <li>Legal basis for antitrust immunity and the regulatory treatment of reserves under Basel III.</li>
+ <li>Average chain depth for the commodity and e-commerce flows, which determines how much GMV becomes final consumption.</li>
+ <li>Evidence that vendor payments and buyer collections settle within each 14-day cycle.</li>
+ <li>Palm oil deal: evidence of USD 150.00M a year (10,000,000 metric tons at USD 15 per ton) to fund the Year 1 buyback.</li>
+ <li>Legal documents for the buyback of the seed investors' principal and 20% interest in each track.</li>
+</ul>
+
+<h2>15. Verdict</h2>
+<p>The plan is structurally coherent: a $4.0M CapEx programme is funded by the investment, Year 1 operating costs are met from revenue, and all after-tax profit is reinvested until GMV reaches 70% of world GDP. On that basis the plan reaches the cap in Year 10, after which profit is paid to GK. Holding 70% of world GDP as transaction volume is a strong demand assumption that the document does not evidence. Treat the figures as projections, and confirm the open items before any commitment.</p>
+
+<h2>16. Exit Paths</h2>
+<p>The seed investors exit in Year 1. GK Bharta pays the buyback of their USD 4.0M principal and 20% interest in Track A, as part of the USD 8.00M seed buyback. No external exit route is needed, so the modelled sale-value table in earlier drafts is removed. Any later route for a third-party investor would need a new valuation and agreed terms.</p>
+<div class="disclaimer">
+  <strong>Disclaimer: This is not investment advice.</strong><br>
+  This summary sets out projections and assumptions for general informational purposes only. It is not an offer, solicitation, or recommendation to buy, sell, or invest in any security, company, or financial product. The projections, revenue figures, fee structures, tax treatment, reserve balances, and timelines are management assumptions that have not been independently verified. Readers should consult qualified financial, legal, and tax advisers before making any investment decision.
+</div>
+
+<p class="footer" style="margin-top:28px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-Capital-Simulation/" target="_blank" rel="noopener noreferrer">Delper Capital Simulation</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-Global-Pitch-Deck-/" target="_blank" rel="noopener noreferrer">Pitch Deck</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-Process-Guard---Zero-Trust-/" target="_blank" rel="noopener noreferrer">Delper Zero Trust Process Guard - Deeptech Project</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Radiant-/" target="_blank" rel="noopener noreferrer">Trust Layer 10 Years Traction USD 12 Million Valuation and Going Strong</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Radiant-Valuation-/" target="_blank" rel="noopener noreferrer">Radiant Synage Valuation Working</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://radiantsynage.com" target="_blank" rel="noopener noreferrer">The Digital Signage People</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-CSR/" target="_blank" rel="noopener noreferrer">Delper CSR - Support there, where it was earned - A Global Humanitarian Initiative</a></p>
+</div>
+</body>
+</html>
