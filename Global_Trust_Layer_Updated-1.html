@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delper Global Trust Infrastructure: Executive Summary and Investment Plan</title>
+<style>
+:root {
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --bg: #f5f7fa; --surface: #ffffff; --text: #1f2933; --muted: #52606d;
+  --accent: #1f4e79; --accent-light: #e8f0f8; --border: #d9e2ec;
+  --ok: #1d7a4a; --ok-bg: #e6f4ec;
+  --err: #b42318; --err-bg: #fdecea;
+  --warn-bg: #fff8e1; --warn-border: #d9a421;
+  --hi: #0b5d3b; --hi-bg: #e3f5ec;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121820; --surface: #1a2330; --text: #e4e9f0; --muted: #9aa8b8;
+    --accent: #7fb2e5; --accent-light: #223247; --border: #2c3a4d;
+    --ok: #6fd39a; --ok-bg: #173325; --err: #ff8a80; --err-bg: #3a1c1a;
+    --warn-bg: #3a3118; --warn-border: #d9a421; --hi: #6fd39a; --hi-bg: #173325;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121820; --surface: #1a2330; --text: #e4e9f0; --muted: #9aa8b8;
+  --accent: #7fb2e5; --accent-light: #223247; --border: #2c3a4d;
+  --ok: #6fd39a; --ok-bg: #173325; --err: #ff8a80; --err-bg: #3a1c1a;
+  --warn-bg: #3a3118; --warn-border: #d9a421; --hi: #6fd39a; --hi-bg: #173325;
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: Georgia, "Times New Roman", serif; line-height: 1.7; font-size: 16px;
+}
+.container {
+  max-width: 880px; margin: 24px auto; background: var(--surface);
+  padding: 44px 52px; border: 1px solid var(--border); border-radius: 6px;
+}
+header { border-bottom: 3px solid var(--accent); padding-bottom: 18px; margin-bottom: 28px; }
+.wordmark { font-family: Arial, Helvetica, sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--accent); letter-spacing: .04em; margin-bottom: 14px; }
+h1 { font-size: 1.95rem; color: var(--accent); margin: 0 0 8px; line-height: 1.25; }
+.subtitle { font-family: Arial, Helvetica, sans-serif; color: var(--muted); font-size: 0.95rem; }
+h2 {
+  font-family: Arial, Helvetica, sans-serif; font-size: 1.3rem; color: var(--accent);
+  margin: 38px 0 12px; border-bottom: 1px solid var(--border); padding-bottom: 6px;
+}
+h3 { font-family: Arial, Helvetica, sans-serif; font-size: 1.04rem; margin: 22px 0 8px; }
+p, li { text-align: justify; hyphens: auto; }
+ul { padding-left: 22px; }
+li { margin-bottom: 8px; }
+.disclaimer {
+  background: var(--warn-bg); border: 1px solid var(--warn-border); border-left: 6px solid var(--warn-border);
+  border-radius: 4px; padding: 16px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 0.9rem;
+  text-align: justify; margin-bottom: 26px;
+}
+.disclaimer strong { font-size: 0.98rem; }
+.highlight {
+  background: var(--hi-bg); border: 2px solid var(--hi); border-radius: 6px;
+  padding: 20px 22px; margin: 18px 0;
+}
+.highlight .label {
+  font-family: Arial, Helvetica, sans-serif; font-size: 0.78rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; color: var(--hi);
+}
+.highlight .big {
+  font-family: Arial, Helvetica, sans-serif; font-size: 2.6rem; font-weight: 700;
+  color: var(--hi); line-height: 1.1; margin: 4px 0 6px; font-variant-numeric: tabular-nums;
+}
+.highlight p { margin: 6px 0 0; }
+.formula {
+  background: var(--accent-light); border-left: 4px solid var(--accent); padding: 12px 16px;
+  font-family: "Courier New", monospace; font-size: 0.92rem; margin: 14px 0; overflow-x: auto;
+}
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 18px 0; }
+@media (max-width: 640px) { .kpis { grid-template-columns: 1fr; } }
+.kpi {
+  border: 1px solid var(--border); border-top: 4px solid var(--accent); border-radius: 4px;
+  padding: 14px; background: var(--bg); font-family: Arial, Helvetica, sans-serif;
+}
+.kpi .v { font-size: 1.4rem; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+.kpi .k { font-size: 0.84rem; color: var(--muted); margin-top: 4px; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 4px; margin: 14px 0; }
+table { width: 100%; border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: 0.85rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { color: var(--accent); background: var(--bg); }
+td.num, th.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr:last-child td { border-bottom: none; }
+tr.hl td { background: var(--hi-bg); font-weight: 700; }
+.card {
+  border: 1px solid var(--border); border-radius: 4px; padding: 14px 18px;
+  background: var(--bg); margin: 12px 0;
+}
+.card h3 { margin-top: 0; }
+.footer { font-family: Arial, Helvetica, sans-serif; font-size: 0.82rem; color: var(--muted); margin-top: 30px; }
+.footer a { color: var(--accent); text-decoration: underline; }
+@media (max-width: 640px) {
+  .container { padding: 26px 20px; margin: 10px auto; }
+  h1 { font-size: 1.55rem; }
+  .highlight .big { font-size: 2.1rem; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="wordmark">DELPER</div>
+  <h1>Delper Global Trust Infrastructure: Executive Summary and Investment Plan</h1>
+  <div class="subtitle">10-year outlook at 26 turns from Year 2, no GDP cap. After-tax profit is split 40% to GK Bharta and 60% reinvested, with a $4.0M investment for 20% of the track</div>
+  <p class="subt">Revised to the current model: 40% of after-tax profit to GK Bharta from Year 1, 60% reinvested, and no GMV cap. Track 1 figures are recalculated from the capital and reinvestment mechanics.</p>
+</header>
+<h2>1. Rollout Plan</h2><div class="tablewrap"><table><thead><tr><th>Phase</th><th>Years</th><th>Scope</th></tr></thead><tbody>
+<tr><td>Regional entry</td><td>Years 1 to 3</td><td>APAC, Asia, USA, Europe</td></tr>
+<tr><td>Global</td><td>Years 3 to 5</td><td>Global coverage across commodity and e-commerce rails, phased in from Year 3</td></tr>
+<tr class="hl"><td>Global plus sovereign BOOT</td><td>Years 6 to 11</td><td>Global coverage with BOOT concessions for customs and logistics infrastructure</td></tr>
+</tbody></table></div><p>Year 10 GMV is $619.27B, about 7% of the $9.15T addressable pool. Reaching that volume needs the market to be used at scale, so the demand evidence in Section 14 is essential.</p>
+<h2>2. Operating Flow</h2><div class="tablewrap"><table><thead><tr><th>Step</th><th>Party or system</th><th>Role</th></tr></thead><tbody>
+<tr><td>1. Onboarding</td><td>Proxtera</td><td>Single API endpoint that onboards global buyers and vendors</td></tr>
+<tr><td>2. Order and bidding</td><td>SAP S/4HANA with real-time bidding</td><td>Vendors bid on price and delivery for each order; the lowest qualifying offer is selected</td></tr>
+<tr><td>3. Escrow</td><td>Tazapay</td><td>Holds buyer funds until goods pass inspection</td></tr>
+<tr><td>4. Quality control</td><td>SGS</td><td>Independent inspection with pass and fail webhooks</td></tr>
+<tr><td>5. Release</td><td>Ledger and bonded warehouse</td><td>On pass, funds are released to the vendor; on fail, the credit line is reversed</td></tr>
+<tr><td>6. Delivery to door</td><td>Logistics providers selected by bidding</td><td>Goods move from the warehouse to the buyer at the winning bid's price and terms</td></tr>
+</tbody></table></div><p>Escrow, doorstep delivery, and all other costs are charged to the customer as extra, outside the revenue split. They are not included in the revenue split or the payback figures, and they raise the buyer's landed price.</p>
+<h2>3. Revenue Streams</h2>
+<div class="card"><h3>Stream 1: Software take rates</h3><p>Delper removes a 5.1% share of the traditional friction cost, leaving a take rate of 24.2% on consumer and high-margin goods and 15.184% on premium commodities. Transactions must be at least USD 300.</p></div>
+<div class="card"><h3>Stream 2: Liquidity spread</h3><p>Delper lends from its reserves on 14 to 90 day facilities at a stated 6.5% p.a. Partner banks take a 0.5% p.a. frontending fee, leaving Delper a 6.0% p.a. net spread secured by bonded cargo. On the revenue basis used here, this spread sits inside the 24.2% of turnover, so it is not added on top.</p></div>
+<div class="card"><h3>Stream 3: Sovereign BOOT concessions</h3><p>Delper funds customs ports, logistics hubs, and data centers under 10-year build-own-operate-transfer contracts, and applies the 15.184% rate to port duties and clearing fees. BOOT activity begins in Year 6. BOOT revenue is not included in the revenue figures in this document.</p></div>
+<h2>4. Turnover Targets</h2>
+<p>Turnover is 17.6 in Year 1 on $2.214M of trading capital, and 26 from Year 2, the full capacity of a 14-day cycle. GMV is opening capital times turns. There is no GMV cap: the current model reinvests 60% of after-tax profit, so capital and GMV grow from that base and stay far below world GDP.</p>
+<div class="tablewrap"><table><thead><tr><th>Turns per year</th><th>Purpose</th><th>Result</th></tr></thead><tbody>
+<tr><td>17.6</td><td>Year 1 turnover on $2.214M of trading capital</td><td>Year 1 GMV of $38.97M</td></tr>
+<tr><td>26</td><td>Plan turnover from Year 2</td><td>Year 10 GMV of $619.27B, about 0.36% of base world GDP</td></tr>
+<tr class="hl"><td>60% of after-tax profit</td><td>Reinvestment rule (40% paid to GK Bharta)</td><td>Capital grows from $2.214M to $68.60B by the end of Year 10</td></tr>
+</tbody></table></div>
+<h2>5. Bottom Line</h2>
+<p>Delper connects global buyers and vendors through one integration layer, holds payment in escrow, checks quality at an independent inspection stage, and sources orders through competitive bidding on price and logistics. Revenue comes from a software take rate, a liquidity spread, and, from Year 6, sovereign BOOT concessions (not included in the figures below).</p>
+<p>The seed investors exit in Year 1: GK Bharta pays the buyback of their principal and their 20% interest. From Year 1, GK Bharta receives 40% of Track 1 after-tax profit each year, and 60% is reinvested. Over Years 1 to 10 Track 1 generates $229.57B of revenue, $114.33B of after-tax profit, of which $45.73B is paid to GK Bharta.</p>
+<div class="kpis">
+  <div class="kpi"><div class="v">$9.43M</div><div class="k">Year 1 revenue</div></div>
+  <div class="kpi"><div class="v">$149.86B</div><div class="k">Year 10 revenue</div></div>
+  <div class="kpi"><div class="v">$619.27B</div><div class="k">Year 10 GMV</div></div>
+  <div class="kpi"><div class="v">$45.73B</div><div class="k">Paid to GK, Years 1 to 10</div></div>
+</div>
+<h2>6. Use of the $4.0M Investment</h2>
+<p>All of the investment is capitalised as CapEx. Of that, $2.214M is Year 1 trading capital and $1.786M is set-up spend. Year 1 operating costs are funded from revenue, not from the investment.</p>
+<div class="tablewrap"><table><thead><tr><th>Item</th><th>Amount</th><th>Year 1 trading capital?</th></tr></thead><tbody>
+<tr><td>Business process initial investment (SAP BTP middleware, Signavio process mapping, transfer pricing)</td><td>$864,000</td><td>Yes</td></tr>
+<tr><td>Singapore incorporation and licensing</td><td>$250,000</td><td>No</td></tr>
+<tr><td>SAP S/4HANA ERP licence and implementation</td><td>$386,000</td><td>No</td></tr>
+<tr><td>Local partner expense</td><td>$400,000</td><td>No</td></tr>
+<tr><td>Office setup</td><td>$200,000</td><td>No</td></tr>
+<tr><td>Technology expense</td><td>$400,000</td><td>No</td></tr>
+<tr><td>SGS quality webhook integration</td><td>$150,000</td><td>No</td></tr>
+<tr><td>Initial liquidity reserve</td><td>$1,000,000</td><td>Yes</td></tr>
+<tr><td>Contingency (balance)</td><td>$350,000</td><td>Yes</td></tr>
+<tr class="hl"><td><strong>Total CapEx</strong></td><td><strong>$4,000,000</strong></td><td><strong>$2,214,000 trading</strong></td></tr>
+</tbody></table></div>
+<div class="tablewrap"><table><thead><tr><th>Use</th><th>Amount</th><th>Funded from</th></tr></thead><tbody>
+<tr><td>CapEx (nine items above)</td><td>$4,000,000</td><td>Investment</td></tr>
+<tr><td>Year 1 OpEx (40% of revenue)</td><td>$3.77M</td><td>Year 1 revenue</td></tr>
+<tr class="hl"><td>Total Year 1 uses</td><td>$4,000,000 plus Year 1 OpEx</td><td>—</td></tr>
+</tbody></table></div>
+<h2>7. Year 1 Revenue Split</h2>
+<p>Operating expenses are 40% of revenue. Income tax at 17% is paid from pretax profit (revenue less operating expenses). The remaining after-tax profit is split 40% to GK Bharta and 60% reinvested. The pretax base needs confirmation with a tax adviser.</p>
+<div class="tablewrap"><table><thead><tr><th>Use of revenue</th><th>Share</th><th>Amount</th></tr></thead><tbody>
+<tr><td>Paid to GK Bharta (40% of after-tax profit)</td><td>19.92%</td><td>$1.88M</td></tr>
+<tr><td>Reinvested into capital (60% of after-tax profit)</td><td>29.88%</td><td>$2.82M</td></tr>
+<tr><td>Income tax (17% of pretax)</td><td>10.20%</td><td>$0.96M</td></tr>
+<tr><td>OpEx (40% of revenue)</td><td>40.00%</td><td>$3.77M</td></tr>
+<tr class="hl"><td>Total revenue</td><td>100%</td><td>$9.43M</td></tr>
+</tbody></table></div>
+<p>Bridge to Year 2 opening capital: Year 1 trading capital of $2.214M plus $2.82M reinvested gives opening capital of $5.03M for Year 2.</p>
+<h2>8. Investor Return and Buyback</h2>
+<p>The Track 1 seed investor puts in $4.0M for 20% of the track (post-money $20.0M). In Year 1 GK Bharta pays the seed investors USD 8.00M across both tracks, which returns their principal and buys back their 40% interest in total. The Track 1 share of that payment is USD 4.0M. The investor is not repaid from a CapEx stream.</p>
+<div class="kpis">
+  <div class="kpi"><div class="v">20%</div><div class="k">Ownership bought back for $4.0M (post-money $20.0M)</div></div>
+  <div class="kpi"><div class="v">$200,000</div><div class="k">Price per 1% of the track</div></div>
+</div>
+<p>Exit decision: the investor exits at month 12, receiving its USD 4.0M principal and the buyback of its 20% interest. GK Bharta pays this from palm oil income of USD 15.00M a year (1,000,000 metric tons at USD 15 per ton), which also funds the Radiant lump-sum payment of USD 4.00M. The palm oil business continues as usual after the buyback. The palm oil deal is outside this model and must be evidenced before commitment.</p>
+<h2>9. Plan Turnover, Capital and Payback</h2><p>Turnover is 17.6 in Year 1 on trading capital of $2.214M, and 26 from Year 2 applied to the prior year's closing capital. OpEx is 40% of revenue, tax is 17% of pretax profit, GK Bharta receives 40% of after-tax profit, and 60% is reinvested into capital.</p><div class="tablewrap"><table><thead><tr><th>Year</th><th>Turns</th><th>GMV</th><th>Revenue</th><th>OpEx (40%)</th><th>Tax (17%)</th><th>After-tax profit</th><th>Paid to GK (40%)</th><th>Reinvested (60%)</th><th>Closing capital</th></tr></thead><tbody>
+<tr><td>1</td><td>17.6</td><td>$38.97M</td><td>$9.43M</td><td>$3.77M</td><td>$0.96M</td><td>$4.70M</td><td>$1.88M</td><td>$2.82M</td><td>$5.03M</td></tr>
+<tr><td>2</td><td>26.0</td><td>$130.82M</td><td>$31.66M</td><td>$12.66M</td><td>$3.23M</td><td>$15.77M</td><td>$6.31M</td><td>$9.46M</td><td>$14.49M</td></tr>
+<tr><td>3</td><td>26.0</td><td>$376.78M</td><td>$91.18M</td><td>$36.47M</td><td>$9.30M</td><td>$45.41M</td><td>$18.16M</td><td>$27.24M</td><td>$41.74M</td></tr>
+<tr><td>4</td><td>26.0</td><td>$1.09B</td><td>$262.60M</td><td>$105.04M</td><td>$26.79M</td><td>$130.78M</td><td>$52.31M</td><td>$78.47M</td><td>$120.20M</td></tr>
+<tr><td>5</td><td>26.0</td><td>$3.13B</td><td>$756.31M</td><td>$302.52M</td><td>$77.14M</td><td>$376.64M</td><td>$150.66M</td><td>$225.98M</td><td>$346.19M</td></tr>
+<tr><td>6</td><td>26.0</td><td>$9.00B</td><td>$2.18B</td><td>$871.28M</td><td>$222.18M</td><td>$1.08B</td><td>$433.90M</td><td>$650.85M</td><td>$997.03M</td></tr>
+<tr><td>7</td><td>26.0</td><td>$25.92B</td><td>$6.27B</td><td>$2.51B</td><td>$639.88M</td><td>$3.12B</td><td>$1.25B</td><td>$1.87B</td><td>$2.87B</td></tr>
+<tr><td>8</td><td>26.0</td><td>$74.66B</td><td>$18.07B</td><td>$7.23B</td><td>$1.84B</td><td>$9.00B</td><td>$3.60B</td><td>$5.40B</td><td>$8.27B</td></tr>
+<tr><td>9</td><td>26.0</td><td>$215.02B</td><td>$52.04B</td><td>$20.81B</td><td>$5.31B</td><td>$25.91B</td><td>$10.37B</td><td>$15.55B</td><td>$23.82B</td></tr>
+<tr><td>10</td><td>26.0</td><td>$619.27B</td><td>$149.86B</td><td>$59.95B</td><td>$15.29B</td><td>$74.63B</td><td>$29.85B</td><td>$44.78B</td><td>$68.60B</td></tr>
+</tbody></table></div>
+<h2>10. Reinvestment and Capital Path</h2>
+<div class="formula">Capital(t+1) = Capital(t) + 60% × After-tax profit(t)<br>GMV(t) = Capital(t) × turns(t)<br>Revenue(t) = 24.2% × GMV(t)<br>After-tax profit(t) = Revenue(t) × (1 − 40%) × (1 − 17%)</div>
+<p>Share of base GDP is shown for reference only. Without a cap, Track 1 GMV stays far below world GDP in every year.</p>
+<div class="tablewrap"><table><thead><tr><th>Year</th><th>Base world GDP</th><th>GMV</th><th>Share of base GDP</th></tr></thead><tbody>
+<tr><td>1</td><td>$126.30T</td><td>$38.97M</td><td>0.0000%</td></tr>
+<tr><td>2</td><td>$130.59T</td><td>$130.82M</td><td>0.0001%</td></tr>
+<tr><td>3</td><td>$135.03T</td><td>$376.78M</td><td>0.0003%</td></tr>
+<tr><td>4</td><td>$139.63T</td><td>$1.09B</td><td>0.0008%</td></tr>
+<tr><td>5</td><td>$144.37T</td><td>$3.13B</td><td>0.0022%</td></tr>
+<tr><td>6</td><td>$149.28T</td><td>$9.00B</td><td>0.0060%</td></tr>
+<tr><td>7</td><td>$154.36T</td><td>$25.92B</td><td>0.0168%</td></tr>
+<tr><td>8</td><td>$159.61T</td><td>$74.66B</td><td>0.0468%</td></tr>
+<tr><td>9</td><td>$165.03T</td><td>$215.02B</td><td>0.1303%</td></tr>
+<tr><td>10</td><td>$170.64T</td><td>$619.27B</td><td>0.3629%</td></tr>
+</tbody></table></div>
+<h2>10a. Recursive Turnover and End-Customer Test</h2>
+<p>The end customer is the buyer, so turnover is recursive: the same buyer money is counted at each step of a chain. End-customer spend is GMV divided by the chain depth. Year 10 GMV of $619.27B is tested below against base world GDP of $170.64T.</p>
+<div class="tablewrap"><table><thead><tr><th>Chain depth (steps per end sale)</th><th>End-customer spend, Year 10</th><th>Share of base world GDP</th></tr></thead><tbody>
+<tr><td>1</td><td>$619.27B</td><td>0.363%</td></tr>
+<tr><td>1.5</td><td>$412.85B</td><td>0.242%</td></tr>
+<tr><td>2</td><td>$309.64B</td><td>0.181%</td></tr>
+<tr><td>3</td><td>$206.42B</td><td>0.121%</td></tr>
+<tr><td>5</td><td>$123.85B</td><td>0.073%</td></tr>
+</tbody></table></div>
+<p>Average chain depth for the commodity and e-commerce flows, and settlement within each 14-day cycle, both need evidence.</p>
+<h2>11. KPI Scorecard</h2>
+<div class="tablewrap"><table><thead><tr><th>Metric</th><th>Plan value</th></tr></thead><tbody>
+<tr><td>Year 1 revenue</td><td>$9.43M</td></tr>
+<tr><td>Year 2 revenue</td><td>$31.66M</td></tr>
+<tr><td>Year 5 revenue</td><td>$756.31M</td></tr>
+<tr><td>Year 10 revenue</td><td>$149.86B</td></tr>
+<tr><td>Year 1 closing capital</td><td>$5.03M</td></tr>
+<tr><td>Year 10 closing capital</td><td>$68.60B</td></tr>
+<tr><td>Year 10 GMV</td><td>$619.27B</td></tr>
+<tr><td>Paid to GK Bharta, Years 1 to 10</td><td>$45.73B</td></tr>
+<tr><td>Investor exit</td><td>Year 1, paid by GK Bharta</td></tr>
+</tbody></table></div>
+<h2>12. Risks</h2>
+<ul>
+<li><strong>Reinvestment dependence:</strong> only 60% of after-tax profit is reinvested, so growth depends on 26 turns a year and on settlement within each cycle.</li>
+<li><strong>Capacity:</strong> 26 turns means a full 14-day cycle every year from Year 2, with no slack for delay, default, or disruption.</li>
+<li><strong>Year 1 capital:</strong> Year 1 turnover of $38.97M rests on $2.214M of trading capital. Set-up spend of $1.786M is not turned over.</li>
+<li><strong>Demand:</strong> Year 10 GMV of $619.27B is about 6.8% of the $9.15T addressable pool the document sizes.</li>
+<li><strong>Customer pricing:</strong> passing all other costs to customers raises the landed price. That weakens the best-price claim and may reduce volume.</li>
+<li><strong>Integration dependency:</strong> disruption of SAP BTP Event Mesh or Proxtera endpoints would create transaction backlogs.</li>
+<li><strong>Regulatory exposure:</strong> antitrust review by the US FTC or European Commission remains a risk. The antitrust immunity claim for BOOT concessions has no cited legal basis.</li>
+<li><strong>Banking treatment:</strong> Basel III ratios apply to a bank's own capital, so the treatment of reserves inside partner banks needs a regulatory opinion.</li>
+<li><strong>Licensing and settlement:</strong> netting cannot remove settlement with parties outside the network, and licences for payment, lending, and custody in each market need confirming.</li>
+<li><strong>Income tax basis:</strong> tax is 17% of pretax profit, with pretax taken as revenue less OpEx. The pretax base needs confirmation with a Singapore tax adviser.</li>
+</ul>
+<h2>13. Open Items Before Investment</h2>
+<ul>
+<li>Evidence that the plan can sustain 26 turns from Year 2, the full 14-day cycle.</li>
+<li>Evidence of market demand for Year 10 GMV, and the basis for the GDP reference path.</li>
+<li>Confirmation of the pretax base and the income tax treatment, with a Singapore tax adviser.</li>
+<li>Treatment of the $1.0M liquidity reserve as CapEx or working capital, to confirm with an auditor.</li>
+<li>Signed agreements or public confirmation for Proxtera, Tazapay, SGS, and each partner bank and government partner.</li>
+<li>Escrow, bidding, logistics, and all other costs passed to customers, which are not yet costed in the investment plan. Confirm the principal or agent treatment with the accountant.</li>
+<li>Legal basis for antitrust immunity and the regulatory treatment of reserves under Basel III.</li>
+<li>Average chain depth for the commodity and e-commerce flows, which determines how much GMV becomes final consumption.</li>
+<li>Evidence that vendor payments and buyer collections settle within each 14-day cycle.</li>
+<li>Palm oil deal: evidence of USD 15.00M a year (1,000,000 metric tons at USD 15 per ton) to fund the Year 1 buyback and the Radiant payment.</li>
+<li>Legal documents for the buyback of the seed investors' principal and 40% interest across both tracks.</li>
+</ul>
+<h2>14. Verdict</h2>
+<p>The plan is structurally coherent: a $4.0M CapEx programme is funded by the investment, Year 1 operating costs are met from revenue, and 60% of after-tax profit is reinvested every year. Track 1 reaches $149.86B of revenue in Year 10 on the current model. Its outcome depends on sustaining 26 turns and on market demand for the volume required. Treat the figures as projections, and confirm the open items before any commitment.</p>
+<h2>15. Exit Paths</h2>
+<p>The seed investors exit in Year 1. GK Bharta pays the buyback of their USD 4.0M principal and 20% interest in Track 1, as part of the USD 8.00M seed buyback. No external exit route is needed.</p>
+<div class="disclaimer">
+  <strong>Disclaimer: This is not investment advice.</strong><br>
+  This summary sets out projections and assumptions for general informational purposes only. It is not an offer, solicitation, or recommendation to buy, sell, or invest in any security, company, or financial product. The projections, revenue figures, fee structures, tax treatment, reserve balances, and timelines are management assumptions that have not been independently verified. Readers should consult qualified financial, legal, and tax advisers before making any investment decision.
+</div>
+
+
+<p class="footer" style="margin-top:28px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-Capital-Simulation/" target="_blank" rel="noopener noreferrer">Delper Capital Simulation</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-Global-Pitch-Deck-/" target="_blank" rel="noopener noreferrer">Pitch Deck</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-Process-Guard---Zero-Trust-/" target="_blank" rel="noopener noreferrer">Delper Zero Trust Process Guard - Deeptech Project</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Radiant-/" target="_blank" rel="noopener noreferrer">Trust Layer 10 Years Traction USD 12 Million Valuation and Going Strong</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Radiant-Valuation-/" target="_blank" rel="noopener noreferrer">Radiant Synage Valuation Working</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://radiantsynage.com" target="_blank" rel="noopener noreferrer">The Digital Signage People</a></p>
+<p class="footer" style="margin-top:12px;text-align:center;"><a href="https://gkbharta44-code.github.io/Delper-CSR/" target="_blank" rel="noopener noreferrer">Delper CSR - Support there, where it was earned - A Global Humanitarian Initiative</a></p>
+</div>
+</body>
+</html>
