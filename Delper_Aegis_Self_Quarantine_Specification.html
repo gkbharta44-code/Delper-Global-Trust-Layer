@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Delper Aegis: Self-Quarantine Software Specification</title>
+<style>
+:root {
+  --paper: #e9ecef; --panel: #f8f9fa; --ink: #161d24; --ink-2: #3d4854;
+  --steel: #5a6672; --rule: #c5ccd3; --signal: #e0a100; --wire: #1f5f7a;
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0e1217; --panel: #161c23; --ink: #e4e8ec; --ink-2: #b7c0c9;
+    --steel: #8b96a1; --rule: #2e3742; --signal: #f0b72a; --wire: #6fb4cf; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0e1217; --panel: #161c23; --ink: #e4e8ec; --ink-2: #b7c0c9;
+  --steel: #8b96a1; --rule: #2e3742; --signal: #f0b72a; --wire: #6fb4cf; color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif; font-size: 16px; line-height: 1.6; }
+main { max-width: 1000px; margin: 0 auto; padding: 40px 20px 72px; }
+header.cover { padding-bottom: 28px; border-bottom: 3px solid var(--ink); margin-bottom: 8px; }
+h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); line-height: 1.12; letter-spacing: -0.02em; font-weight: 700; margin: 0 0 14px; }
+.status { font-size: 0.9rem; color: var(--ink-2); margin: 0; }
+section { padding: 30px 0; border-bottom: 1px solid var(--rule); }
+h2 { font-size: 1.35rem; font-weight: 600; margin: 0 0 14px; }
+h3 { font-size: 1.02rem; font-weight: 600; margin: 22px 0 8px; }
+p, li { color: var(--ink-2); }
+p { margin: 0 0 14px; }
+ul, ol { padding-left: 1.3rem; margin: 0 0 14px; }
+li { margin-bottom: 6px; }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.88em; color: var(--ink); }
+.note { border-left: 4px solid var(--wire); background: var(--panel); padding: 12px 16px; margin: 16px 0; color: var(--ink-2); }
+.caveat { border-left: 4px solid var(--signal); background: var(--panel); padding: 12px 16px; margin: 16px 0; color: var(--ink-2); }
+.table-wrap { overflow-x: auto; margin: 12px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 760px; }
+th, td { padding: 8px 9px; border-bottom: 1px solid var(--rule); vertical-align: top; text-align: left; color: var(--ink-2); }
+thead th { border-bottom: 2px solid var(--ink); color: var(--ink); font-weight: 600; }
+td.id { font-family: ui-monospace, Menlo, monospace; color: var(--ink); white-space: nowrap; }
+td.tn { color: var(--ink); font-weight: 600; white-space: nowrap; }
+tr.provisional td.tn::after { content: " *"; color: var(--steel); font-weight: 400; }
+.mods { font-family: ui-monospace, Menlo, monospace; font-size: 0.82rem; color: var(--ink); }
+.mod-table td:first-child { font-family: ui-monospace, Menlo, monospace; color: var(--ink); white-space: nowrap; }
+footer { margin-top: 36px; font-size: 0.85rem; color: var(--steel); }
+</style>
+</head>
+<body>
+<main>
+
+<header class="cover">
+  <h1>Delper Aegis: Self-Quarantine Software Specification</h1>
+  <p class="status">Companion to the Delper Aegis Exhaustive Executive Summary (revised October 2026). Maps each threat in the Splunk "Top 50 Cybersecurity Threats" contents to the software that detects it and contains it.</p>
+</header>
+
+<section>
+  <h2>1. Scope and Design Rule</h2>
+  <p>This specification adds a self-quarantine capability to Aegis. A threat is detected, classified, contained, verified, and then released or escalated, with every step recorded in the sealed quarantine store. Containment is always a network, identity, or cloud action, or a safe-state action on the host. No containment step writes to a PLC or changes a control program, which preserves the hardware write-lock described in Section 2 of the summary.</p>
+  <div class="note"><strong>Safety rule for OT:</strong> any action that could change a physical process (isolating a controller, stopping a workload, cutting a link to a running line) runs only in a last-known-safe state and requires a human approval record, unless the safe-state rule in Section 3 applies.</div>
+  <div class="caveat"><strong>Hardware boundary:</strong> the Delper Guard device can enforce only what crosses the plant network. Phishing, identity, SaaS, and cloud threats need connectors to the customer's identity provider, email and web gateways, endpoint tools, and cloud accounts. These connectors are software, and they are listed as required modules below. The summary does not currently price or scope them.</div>
+</section>
+
+<section>
+  <h2>2. Required Software Modules</h2>
+  <div class="table-wrap">
+    <table class="mod-table">
+      <thead><tr><th>Module</th><th>Role</th><th>Runs on</th></tr></thead>
+      <tbody>
+        <tr><td>QG-ORCH</td><td>Quarantine orchestrator: state machine, playbook dispatch, approval gates, timers</td><td>Cloud reasoning platform</td></tr>
+        <tr><td>QG-SEAL</td><td>Sealed quarantine store: append-only, hash-chained evidence and actions; host software cannot write or clear it</td><td>Guard secure element, mirrored to cloud</td></tr>
+        <tr><td>QG-DPI</td><td>Inline protocol inspection (Modbus, PROFINET, EtherCAT, OPC UA); drops and quarantines flows</td><td>Delper Guard (existing)</td></tr>
+        <tr><td>QG-NET</td><td>Network enforcer: VLAN and segment isolation, port shutdown, egress allow-lists, DNS sinkhole, DNSSEC and DoH enforcement</td><td>Guard plus customer switch and DNS integration</td></tr>
+        <tr><td>QG-IDP</td><td>Identity connector: session and token revocation, forced re-authentication, account lock, OAuth grant removal, MFA policy</td><td>Customer IdP (SSO, MFA)</td></tr>
+        <tr><td>QG-EDR</td><td>Endpoint connector: host isolation, process suspension, memory capture, driver blocklist, tamper-protection enforcement</td><td>Endpoint agent on IT hosts</td></tr>
+        <tr><td>QG-CLD</td><td>Cloud connector: API key revocation, public-access closure, workload termination, IAM role reduction, storage egress block</td><td>Customer cloud accounts</td></tr>
+        <tr><td>QG-MWG</td><td>Mail and web gateway hooks: message hold and purge, link and domain blocking, browser isolation, cookie binding</td><td>Email and web gateway</td></tr>
+        <tr><td>QG-AIG</td><td>AI guardrails: input classifier for jailbreak and injection, output filter, per-key rate limiter, session block</td><td>AI core and FDE platform</td></tr>
+        <tr><td>QG-MIG</td><td>Model and supply-chain integrity: signed model and dataset registry, provenance checks, version rollback, training freeze</td><td>AI pipeline and package registry</td></tr>
+        <tr><td>QG-PV</td><td>Patch and verification: signed patches applied through quarantine, virtual-patch rules, integrity checks on Guard and host agents</td><td>Cloud, delivered to Guard</td></tr>
+        <tr><td>QG-TI</td><td>Telemetry and analytics: SIEM and UEBA correlation, baselines for volume, authentication, CPU, and DNS</td><td>Cloud analytics</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>3. Quarantine State Machine</h2>
+  <ol>
+    <li><strong>Detect:</strong> QG-TI or QG-DPI raises a signal with a threat ID from the table in Section 4.</li>
+    <li><strong>Classify:</strong> QG-ORCH selects the playbook and confidence level. Low confidence records the event and does not contain.</li>
+    <li><strong>Contain:</strong> the playbook's actions run, scoped to the smallest affected unit (flow, session, host, account, workload, or segment). Safe-state rule: if an OT action could affect a running process, the Guard holds the last-known-safe state and waits for approval.</li>
+    <li><strong>Preserve:</strong> QG-SEAL records the evidence before any destructive step, including memory capture and configuration snapshots.</li>
+    <li><strong>Verify:</strong> QG-TI confirms the containment held, and QG-PV checks integrity of the affected component.</li>
+    <li><strong>Release or escalate:</strong> release on the playbook's condition, or hand off to a named human responder. Every transition is written to QG-SEAL.</li>
+  </ol>
+  <p>Default timers: containment reviewed within one hour, release decisions within 24 hours, and a forced human review at 7 days for any quarantine still open. Automatic release never applies to insider, process-affecting, or legal-hold cases.</p>
+</section>
+
+<section>
+  <h2>4. Threat-to-Software Map</h2>
+  <p>Each row names the detection signal, the modules required, the containment action, and the release condition. Rows marked * are from the contents page only; the full text was not readable past threat 35, so those rows are provisional and should be checked against the source.</p>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Threat</th><th>Detection signal</th><th>Modules</th><th>Quarantine action</th><th>Release condition</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="id">1</td><td class="tn">Advanced persistent threat</td><td>Long-dwell auth anomalies, unusual admin tool use</td><td class="mods">TI, IDP, EDR, NET</td><td>Isolate affected hosts, revoke sessions, segment critical systems</td><td>IR sign-off and no indicators for 30 days</td></tr>
+        <tr><td class="id">2</td><td class="tn">Data exfiltration</td><td>Outbound volume spike, unknown destinations</td><td class="mods">NET, TI, CLD</td><td>Block egress to destination, pause transfer, stage evidence</td><td>Analyst confirms destination benign</td></tr>
+        <tr><td class="id">3</td><td class="tn">Session hijacking</td><td>Token reuse across devices or locations</td><td class="mods">IDP, MWG, TI</td><td>Revoke token, force re-authentication, bind cookie to device</td><td>User re-authenticates and device posture passes</td></tr>
+        <tr><td class="id">4</td><td class="tn">Watering hole attack</td><td>Redirect or script change on a trusted site</td><td class="mods">MWG, NET, TI</td><td>Block domain, sinkhole, browser-isolate visits</td><td>Threat feed clears the domain</td></tr>
+        <tr><td class="id">5</td><td class="tn">Zero-day exploit</td><td>Abnormal process, privilege, or network behavior</td><td class="mods">DPI, PV, NET, EDR</td><td>Isolate device, apply virtual-patch rule, block exploit path</td><td>Signed vendor patch verified on device</td></tr>
+        <tr><td class="id">6</td><td class="tn">Backdoor injection</td><td>Trigger-like output patterns, model integrity mismatch</td><td class="mods">MIG, AIG, TI</td><td>Quarantine model version, roll back to last signed version</td><td>Retrained on validated data and provenance passes</td></tr>
+        <tr><td class="id">7</td><td class="tn">Content abuse</td><td>Output classifier flags, spikes in generated content</td><td class="mods">AIG, IDP, TI</td><td>Withhold output, throttle account, route to human review</td><td>Reviewer clears content and policy</td></tr>
+        <tr><td class="id">8</td><td class="tn">Jailbreaking</td><td>Injection patterns in prompts, repeated guardrail hits</td><td class="mods">AIG, IDP</td><td>Block session, tighten classifier for the pattern</td><td>Review confirms no data or policy exposure</td></tr>
+        <tr><td class="id">9</td><td class="tn">Model extraction attacks</td><td>High-volume, systematic query patterns per key</td><td class="mods">AIG, CLD</td><td>Rate-limit, revoke API key, reduce output granularity</td><td>Key owner verified and usage normal</td></tr>
+        <tr><td class="id">10</td><td class="tn">Model poisoning</td><td>Drift, anomalous outputs, dataset provenance gap</td><td class="mods">MIG, TI</td><td>Freeze training pipeline, quarantine dataset batch</td><td>Batch passes provenance and retraining review</td></tr>
+        <tr><td class="id">11</td><td class="tn">Resource hijacking</td><td>Unapproved jobs, GPU or CPU use off-baseline</td><td class="mods">CLD, NET, TI</td><td>Terminate unapproved workloads, isolate cluster</td><td>Job allow-list confirmed and auth fixed</td></tr>
+        <tr><td class="id">12</td><td class="tn">Cloud misconfiguration</td><td>Public exposure, IAM drift from policy baseline</td><td class="mods">CLD, TI</td><td>Auto-revert to private policy, close public access</td><td>Configuration validated against baseline</td></tr>
+        <tr><td class="id">13</td><td class="tn">Data exfiltration (cloud)</td><td>Unusual API sequences, storage egress spikes</td><td class="mods">CLD, IDP, NET</td><td>Revoke keys, block storage egress, preserve logs</td><td>Access review completed and keys rotated</td></tr>
+        <tr><td class="id">14</td><td class="tn">Insecure APIs</td><td>Calls outside scope, unauthenticated requests</td><td class="mods">CLD, AIG, PV</td><td>Disable endpoint or key, enforce scope</td><td>Fix verified and scope restored</td></tr>
+        <tr><td class="id">15</td><td class="tn">Cryptojacking (cloud)</td><td>CPU spikes, traffic to mining pools</td><td class="mods">CLD, EDR, NET</td><td>Terminate workload, block pool destinations</td><td>Workload baseline restored</td></tr>
+        <tr><td class="id">16</td><td class="tn">Misconfigured systems / exposed databases</td><td>Open ports, public storage or database endpoint</td><td class="mods">CLD, NET</td><td>Close public access, restrict to private network</td><td>Exposure scan clean</td></tr>
+        <tr><td class="id">17</td><td class="tn">SaaS authentication exploits</td><td>Impossible travel, MFA bypass patterns, orphan accounts</td><td class="mods">IDP, CLD, TI</td><td>Lock account, revoke app grants, require phishing-resistant MFA</td><td>Identity verified and grants reviewed</td></tr>
+        <tr><td class="id">18</td><td class="tn">Malicious process injection</td><td>Unexpected memory writes, abnormal parent-child chains</td><td class="mods">EDR, TI</td><td>Suspend process, capture memory, kill, isolate host</td><td>Host rebuilt or integrity-verified</td></tr>
+        <tr><td class="id">19</td><td class="tn">Shadow IT</td><td>Unsanctioned app or workload, OAuth grant to unknown app</td><td class="mods">NET, IDP, CLD</td><td>Block app domain, revoke unsanctioned grant</td><td>Owner approves onboarding or removal</td></tr>
+        <tr><td class="id">20</td><td class="tn">Suspicious cloud authentication</td><td>Anomalous logins, unusual device or geography</td><td class="mods">IDP, TI</td><td>Step-up MFA, lock account if unverified</td><td>User verified out of band</td></tr>
+        <tr><td class="id">21</td><td class="tn">Brute force attack</td><td>High failure rates on one account</td><td class="mods">IDP, NET</td><td>Lock account, block source addresses</td><td>Timer expires and user verified</td></tr>
+        <tr><td class="id">22</td><td class="tn">Insider threat</td><td>Credential misuse, data access outside role</td><td class="mods">IDP, EDR, TI</td><td>Suspend account, restrict access (human decision)</td><td>HR and security decision only</td></tr>
+        <tr><td class="id">23</td><td class="tn">Insider misuse / privilege escalation</td><td>Unexpected role grants, off-hours admin actions</td><td class="mods">IDP, CLD, TI</td><td>Revoke role, enforce just-in-time access</td><td>Review confirms role is needed</td></tr>
+        <tr><td class="id">24</td><td class="tn">MFA fatigue attacks</td><td>Repeated pushes followed by approval</td><td class="mods">IDP, TI</td><td>Deny pending pushes, lock account, require number matching</td><td>User confirms no approval was given</td></tr>
+        <tr><td class="id">25</td><td class="tn">Password spraying</td><td>Few failures per account across many accounts</td><td class="mods">IDP, NET, TI</td><td>Block source set, force reset on accounts with hits</td><td>Source cleared and resets complete</td></tr>
+        <tr><td class="id">26</td><td class="tn">Pass-the-Hash</td><td>NTLM logons from unusual hosts, admin logons off-baseline</td><td class="mods">EDR, IDP, NET</td><td>Isolate host, disable NTLM on segment, rotate credentials</td><td>Credentials rotated and host rebuilt</td></tr>
+        <tr><td class="id">27</td><td class="tn">Distributed denial-of-service</td><td>Traffic volume beyond baseline</td><td class="mods">NET, DPI</td><td>Rate-limit, backpressure, upstream scrubbing</td><td>Traffic back within baseline</td></tr>
+        <tr><td class="id">28</td><td class="tn">DNS spoofing</td><td>Resolver answers that differ from authoritative</td><td class="mods">NET, TI</td><td>Enforce DNSSEC and DoH, flush poisoned cache, block domain</td><td>Resolver patched and cache verified</td></tr>
+        <tr><td class="id">29</td><td class="tn">IoT botnets</td><td>Device outbound to command-and-control, scanning</td><td class="mods">NET, DPI</td><td>Move device to isolated segment</td><td>Firmware updated and default credentials removed</td></tr>
+        <tr><td class="id">30</td><td class="tn">Man-in-the-middle (AiTM)</td><td>Login from reverse-proxy domain, session reuse</td><td class="mods">MWG, IDP, NET</td><td>Block proxy domains, revoke sessions, require hardware keys</td><td>Domains blocked and sessions reissued</td></tr>
+        <tr><td class="id">31</td><td class="tn">Protocol tunneling</td><td>Unexpected tunnel protocols, inner traffic anomalies</td><td class="mods">NET, DPI, TI</td><td>Block tunnel protocol, inspect inner traffic</td><td>Tunnel traced and authorized or removed</td></tr>
+        <tr><td class="id">32</td><td class="tn">Rogue access points and evil twin Wi-Fi</td><td>Unknown BSSID or SSID, unauthorized device on port</td><td class="mods">NET, TI</td><td>Shut port, block BSSID, enforce certificate Wi-Fi</td><td>Device removed or authorized after audit</td></tr>
+        <tr><td class="id">33</td><td class="tn">Bring your own vulnerable driver</td><td>Load of blocklisted or vulnerable driver</td><td class="mods">EDR, PV</td><td>Block driver load, isolate host</td><td>Driver removed and host integrity verified</td></tr>
+        <tr><td class="id">34</td><td class="tn">Disabling security tools</td><td>Protection status change, tamper-protection event</td><td class="mods">EDR, PV, TI</td><td>Re-enable protection, isolate host, preserve evidence</td><td>Protection verified or host rebuilt</td></tr>
+        <tr><td class="id">35</td><td class="tn">Infostealers</td><td>Credential exfiltration to unknown destination</td><td class="mods">EDR, IDP, MWG, NET</td><td>Kill process, revoke sessions, reset credentials, block C2</td><td>Host clean and credentials rotated</td></tr>
+        <tr class="provisional"><td class="id">36</td><td class="tn">Living off the land</td><td>Built-in tools used in unusual sequences</td><td class="mods">EDR, TI</td><td>Suspend process chain, isolate host</td><td>Activity classified benign by analyst</td></tr>
+        <tr class="provisional"><td class="id">37</td><td class="tn">Malware command-and-control</td><td>Beaconing to rare domains or addresses</td><td class="mods">NET, TI</td><td>Sinkhole destination, isolate host</td><td>Host clean and destination cleared</td></tr>
+        <tr class="provisional"><td class="id">38</td><td class="tn">Polymorphic malware</td><td>Behavioral match without signature match</td><td class="mods">EDR, TI, PV</td><td>Quarantine file and host, behavioral block</td><td>Analysis confirms classification</td></tr>
+        <tr class="provisional"><td class="id">39</td><td class="tn">Ransomware / RaaS</td><td>Mass file modification, shadow copy deletion</td><td class="mods">EDR, NET, CLD, TI</td><td>Isolate host and segment, halt encryption, preserve backups</td><td>Clean restore verified and host rebuilt</td></tr>
+        <tr class="provisional"><td class="id">40</td><td class="tn">Supply-chain attacks</td><td>Unsigned or changed vendor package or update</td><td class="mods">MIG, PV, NET</td><td>Block package, pin last verified version, isolate integration</td><td>Vendor signature verified</td></tr>
+        <tr class="provisional"><td class="id">41</td><td class="tn">Business email compromise</td><td>Payment change request, lookalike sender</td><td class="mods">MWG, IDP</td><td>Hold payment workflow, purge message, reset mailbox</td><td>Out-of-band verification of payee</td></tr>
+        <tr class="provisional"><td class="id">42</td><td class="tn">Deepfake-enabled scams (vishing)</td><td>Unverified voice or video instruction</td><td class="mods">IDP, MWG</td><td>Block high-risk action pending call-back verification</td><td>Call-back to known number confirms request</td></tr>
+        <tr class="provisional"><td class="id">43</td><td class="tn">Phishing</td><td>Malicious link or attachment reports</td><td class="mods">MWG, IDP</td><td>Purge message across mailboxes, block URL</td><td>Message confirmed benign by analyst</td></tr>
+        <tr class="provisional"><td class="id">44</td><td class="tn">SIM hijacking</td><td>Carrier port-out or SIM change events</td><td class="mods">IDP</td><td>Disable SMS recovery, require stronger factor</td><td>Carrier and user verification</td></tr>
+        <tr class="provisional"><td class="id">45</td><td class="tn">Smishing</td><td>Malicious SMS links reported</td><td class="mods">MWG, IDP</td><td>Block URL, notify users</td><td>Link cleared by threat feed</td></tr>
+        <tr class="provisional"><td class="id">46</td><td class="tn">Social engineering</td><td>Help-desk reset or policy bypass requests</td><td class="mods">IDP, TI</td><td>Hold reset, require verified identity</td><td>Identity verified through policy</td></tr>
+        <tr class="provisional"><td class="id">47</td><td class="tn">Spear phishing</td><td>Targeted message to privileged users</td><td class="mods">MWG, IDP, TI</td><td>Hold message, alert target, reset if credentials entered</td><td>Analyst confirms benign</td></tr>
+        <tr class="provisional"><td class="id">48</td><td class="tn">API exploitation</td><td>Malformed or out-of-scope API requests</td><td class="mods">CLD, AIG, PV</td><td>Block client, disable endpoint, rate-limit</td><td>Fix verified</td></tr>
+        <tr class="provisional"><td class="id">49</td><td class="tn">Cross-site request forgery</td><td>State-changing requests without valid origin</td><td class="mods">MWG, PV</td><td>Block request pattern, apply virtual-patch rule</td><td>Application fix verified</td></tr>
+        <tr class="provisional"><td class="id">50</td><td class="tn">Cross-site scripting</td><td>Script injection patterns in input or output</td><td class="mods">MWG, PV</td><td>Block pattern, apply virtual-patch rule</td><td>Application fix verified</td></tr>
+        <tr class="provisional"><td class="id">51</td><td class="tn">Drive-by downloads</td><td>Unexpected download from visited page</td><td class="mods">MWG, EDR</td><td>Block download, isolate browser session</td><td>Site cleared and host scanned</td></tr>
+        <tr class="provisional"><td class="id">52</td><td class="tn">SQL injection</td><td>Query anomalies, error patterns</td><td class="mods">MWG, PV, CLD</td><td>Block request pattern, apply virtual-patch rule</td><td>Query fixed and verified</td></tr>
+        <tr class="provisional"><td class="id">53</td><td class="tn">Web application threats</td><td>Application-layer attack signatures</td><td class="mods">MWG, PV</td><td>Block source, apply virtual-patch rule</td><td>Application fix verified</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The contents page lists 53 entries despite the "Top 50" title. This table follows the contents page.</p>
+</section>
+
+<section>
+  <h2>5. Build Order</h2>
+  <ol>
+    <li>QG-SEAL and QG-ORCH, so every later action is recorded and gated.</li>
+    <li>QG-NET and QG-DPI quarantine paths, covering OT and network threats (rows 2, 5, 11, 27–29, 31–32).</li>
+    <li>QG-IDP, QG-EDR, and QG-MWG connectors, covering identity, endpoint, and email threats (rows 3, 17, 20–26, 30, 33–35, 41–47).</li>
+    <li>QG-CLD and QG-AIG, covering cloud and AI threats (rows 6–16, 48, 52).</li>
+    <li>QG-MIG and QG-PV, covering supply chain and patch integrity (rows 10, 40, and virtual patches used across the table).</li>
+  </ol>
+  <div class="caveat"><strong>Not yet validated:</strong> detection thresholds, timers, and playbook release conditions are proposals. They need testing in shadow mode before any live enforcement, consistent with the 60-day shadow-mode recommendation in Section 10 of the summary.</div>
+</section>
+
+<footer>
+  <p>Companion specification to Delper Aegis Exhaustive Executive Summary (revised October 2026). Threat names and descriptions for rows 1–35 come from the Splunk "Top 50 Cybersecurity Threats" text as read; rows marked * come from the contents page only. Module names and playbooks are design proposals for this specification.</p>
+</footer>
+
+</main>
+</body>
+</html>
